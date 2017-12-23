@@ -11,10 +11,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuizService.BusinessLogic\QuizService.BusinessLogic.csproj" />
+    <ProjectReference Include="..\QuizService.DataAccess\QuizService.DataAccess.csproj" />
+    <ProjectReference Include="..\QuizService.Interfaces\QuizService.Interfaces.csproj" />
+    <ProjectReference Include="..\QuizService.Model\QuizService.Model.csproj" />
   </ItemGroup>
 
 </Project>
