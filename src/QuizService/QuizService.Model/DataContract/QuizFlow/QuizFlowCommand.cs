@@ -1,4 +1,4 @@
-﻿namespace QuizService.DataContract.QuizFlow
+﻿namespace QuizService.Model.DataContract
 {
     public abstract class QuizFlowCommand
     {

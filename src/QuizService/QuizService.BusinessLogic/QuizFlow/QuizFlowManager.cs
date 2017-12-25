@@ -1,10 +1,9 @@
 ﻿using QuizService.BusinessLogic.Exceptions;
-using QuizService.DataContract.QuizFlow;
 using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Managers;
 using QuizService.Model;
+using QuizService.Model.DataContract;
 using System;
-using System.Linq;
 
 namespace QuizService.BusinessLogic.QuizFlow
 {

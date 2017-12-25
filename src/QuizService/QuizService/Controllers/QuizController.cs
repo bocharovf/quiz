@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuizService.DataContract.QuizFlow;
+using QuizService.Model.DataContract;
 using QuizService.Filters;
 using QuizService.Interfaces.Managers;
 using QuizService.Model;

@@ -1,5 +1,5 @@
-﻿using QuizService.DataContract.QuizFlow;
-using QuizService.Model;
+﻿using QuizService.Model;
+using QuizService.Model.DataContract;
 
 namespace QuizService.Interfaces.Managers
 {

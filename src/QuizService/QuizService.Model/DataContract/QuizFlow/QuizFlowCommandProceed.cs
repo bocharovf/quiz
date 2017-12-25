@@ -1,6 +1,6 @@
 ﻿using QuizService.Model;
 
-namespace QuizService.DataContract.QuizFlow
+namespace QuizService.Model.DataContract
 {
     public class QuizFlowCommandProceed : QuizFlowCommand
     {
