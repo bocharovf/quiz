@@ -1,8 +1,22 @@
 version: '3'
 
 services:
+  database:
+    image: postgres
+    restart: always
+    environment: &environment
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+    volumes:
+      - data-volume:/var/lib/postgresql/data
   quizservice:
     image: quizservice
     build:
       context: ./QuizService
       dockerfile: Dockerfile
+    environment: *environment
+    depends_on:
+    - database
+
+volumes:
+  data-volume:
