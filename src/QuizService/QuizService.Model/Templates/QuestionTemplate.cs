@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QuizService.Model
 {
@@ -10,8 +11,11 @@ namespace QuizService.Model
 
         public QuestionType QuestionType { get; set; }
 
-        // public ICollection<QuizQuestionTemplate> QuizQuestions { get; set; } = new List<QuizQuestionTemplate>();
-
         public ICollection<AnswerTemplate> Answers { get; set; } = new List<AnswerTemplate>();
+
+        public AnswerTemplate GetAnswer(int templateId)
+        {
+            return this.Answers.FirstOrDefault(q => q.Id == templateId);
+        }
     }
 }

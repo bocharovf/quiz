@@ -16,10 +16,10 @@ namespace QuizService.BusinessLogic.Exceptions
 
         public override object Extension => new { this.EntityType, this.EntityId };
 
-        public EntityNotFoundException(string entityType, object entityId) : base(ErrorCodeVaue)
+        public EntityNotFoundException(Type entityType, object entityId) : base(ErrorCodeVaue)
         {
             this.EntityId = entityId;
-            this.EntityType = entityType;
+            this.EntityType = entityType.Name;
         }
 
         public override string Message

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using QuizService.BusinessLogic.Exceptions;
+using QuizService.Model.DataContract;
 using QuizService.Model.Exceptions;
 using System;
 
@@ -12,7 +13,9 @@ namespace QuizService.Filters
         public override void OnException(ExceptionContext context)
         {
             Exception ex = context.Exception;
-            IActionResult result = new ObjectResult(ex.Message) {
+            
+            IActionResult result = new ObjectResult(new DefaultServiceExceptionContract())
+            {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
 
@@ -25,10 +28,7 @@ namespace QuizService.Filters
                 }
                 else
                 {
-                    result = new ObjectResult(errorData)
-                    {
-                        StatusCode = StatusCodes.Status400BadRequest
-                    };
+                    result = new BadRequestObjectResult(errorData);
                 }
             }
 

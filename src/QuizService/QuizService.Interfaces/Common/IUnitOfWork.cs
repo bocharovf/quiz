@@ -7,6 +7,8 @@ namespace QuizService.Interfaces.Common
     {
         IQuizRepository QuizRepository { get; }
         IQuizTemplateRepository QuizTemplateRepository { get; }
+        IQuestionTemplateRepository QuestionTemplateRepository { get; }
+        IScoreRepository ScoreRepository { get; }
 
         void Save();
     }

@@ -14,7 +14,6 @@ namespace QuizService.Model
 
         public int Id { get; set; }
 
-        public QuizTemplate Template { get; set; }
         public int TemplateId { get; set; }
 
         public DateTime? DateStart { get; set; }
@@ -23,7 +22,7 @@ namespace QuizService.Model
 
         public List<Question> Questions { get; set; }
 
-        public bool IsFinished => DateEnd.HasValue;
+        public bool IsCompleted => DateEnd.HasValue;
 
         public Question LastQuestion
         {
@@ -32,6 +31,10 @@ namespace QuizService.Model
                 return Questions.OrderByDescending(q => q.Order).FirstOrDefault();
             }
         }
-        
+
+        public Question GetQuestion(int questionId)
+        {
+            return this.Questions.FirstOrDefault(q => q.Id == questionId);
+        }
     }
 }

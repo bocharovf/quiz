@@ -5,11 +5,10 @@ using System.Linq;
 
 namespace QuizService.DataAccess.Repository
 {
-    public class QuizTemplateRepository : GenericRepository<QuizTemplate, int>, IQuizTemplateRepository
+    public class ScoreRepository : GenericRepository<Score, int>, IScoreRepository
     {
-        internal QuizTemplateRepository(ApplicationDatabaseContext context) : base(context)
+        internal ScoreRepository(ApplicationDatabaseContext context) : base(context)
         {
-
         }
     }
 }

@@ -12,9 +12,9 @@ namespace QuizService.Model
 
         public int Id { get; set; }
 
-        //public Quiz Quiz { get; set; }
+        public Quiz Quiz { get; set; }
 
-        public QuestionTemplate Template { get; set; }
+        public int TemplateId { get; set; }
 
         public DateTime? DateStart { get; set; }
 

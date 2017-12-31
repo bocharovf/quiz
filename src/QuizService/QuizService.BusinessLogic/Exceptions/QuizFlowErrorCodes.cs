@@ -3,6 +3,8 @@
     public enum QuizFlowErrorCodes
     {
         Unknown,
-        LastQuestionNotAnswered
+        LastQuestionNotAnswered,
+        QuestionAlreadyAnswered,
+        QuizAlreadyCompleted
     }
 }

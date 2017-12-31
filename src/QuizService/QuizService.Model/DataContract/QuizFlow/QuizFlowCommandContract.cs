@@ -1,6 +1,6 @@
 ﻿namespace QuizService.Model.DataContract
 {
-    public abstract class QuizFlowCommand
+    public abstract class QuizFlowCommandContract
     {
         public virtual QuizFlowCommandType CommandType { get; }
     }

@@ -14,24 +14,10 @@ namespace QuizService.DataAccess
 
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Score> Scores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Quiz>()
-                .HasOne(q => q.Template)
-                .WithMany()
-                .IsRequired();
-
-            modelBuilder.Entity<Question>()
-                .HasOne(q => q.Template)
-                .WithMany()
-                .IsRequired();
-
-            modelBuilder.Entity<Answer>()
-                .HasOne(a => a.Template)
-                .WithMany()
-                .IsRequired();
-
             modelBuilder.Entity<QuizQuestionTemplate>()
                 .HasKey(qqt => new
                 {

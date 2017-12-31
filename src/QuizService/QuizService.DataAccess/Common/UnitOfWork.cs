@@ -1,6 +1,7 @@
 ﻿using QuizService.DataAccess.Repository;
 using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Repository;
+using QuizService.Model;
 using System;
 
 namespace QuizService.DataAccess.Common
@@ -16,6 +17,8 @@ namespace QuizService.DataAccess.Common
 
         public IQuizRepository QuizRepository => new QuizRepository(Context);
         public IQuizTemplateRepository QuizTemplateRepository => new QuizTemplateRepository(Context);
+        public IQuestionTemplateRepository QuestionTemplateRepository => new QuestionTemplateRepository(Context);
+        public IScoreRepository ScoreRepository => new ScoreRepository(Context);
 
         public void Save()
         {

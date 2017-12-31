@@ -1,6 +1,8 @@
-﻿namespace QuizService.Model.Exceptions
+﻿using QuizService.Model.Exceptions;
+
+namespace QuizService.Model.DataContract
 {
-    public class ServiceExceptionContract
+    public class ServiceExceptionContract : IServiceExceptionContract
     {
         private BusinessLogicException Exception;
 
