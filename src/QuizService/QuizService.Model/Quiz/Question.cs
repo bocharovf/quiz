@@ -20,7 +20,7 @@ namespace QuizService.Model
 
         public DateTime? DateEnd { get; set; }
 
-        public List<Answer> Answers { get; set; }
+        public ICollection<Answer> Answers { get; set; }
 
         public int Order { get; set; }
 

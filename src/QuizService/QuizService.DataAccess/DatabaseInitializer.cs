@@ -1,4 +1,5 @@
-﻿using QuizService.Model;
+﻿using QuizService.Common.Extensions;
+using QuizService.Model;
 using System.Linq;
 
 namespace QuizService.DataAccess
@@ -50,10 +51,7 @@ namespace QuizService.DataAccess
                 IsCorrect = false,
                 Text = "No author. It's a folklore."
             };
-            question1.Answers.Add(answerQ1A1);
-            question1.Answers.Add(answerQ1A2);
-            question1.Answers.Add(answerQ1A3);
-            question1.Answers.Add(answerQ1A4);
+            question1.Answers.AddRange(new[] { answerQ1A1, answerQ1A2, answerQ1A3, answerQ1A4 });
 
             var question2 = new QuestionTemplate()
             {
@@ -80,10 +78,7 @@ namespace QuizService.DataAccess
                 IsCorrect = false,
                 Text = "Childhood"
             };
-            question2.Answers.Add(answerQ2A1);
-            question2.Answers.Add(answerQ2A2);
-            question2.Answers.Add(answerQ2A3);
-            question2.Answers.Add(answerQ2A4);
+            question2.Answers.AddRange(new[] { answerQ2A1, answerQ2A2, answerQ2A3, answerQ2A4 });
 
             var quizTemplate = new QuizTemplate()
             {
@@ -100,8 +95,7 @@ namespace QuizService.DataAccess
             };
             
             context.QuizTemplates.Add(quizTemplate);
-            context.QuizQuestionTemplates.Add(quizQuestion1);
-            context.QuizQuestionTemplates.Add(quizQuestion2);
+            context.QuizQuestionTemplates.AddRange(new[] { quizQuestion1, quizQuestion2 });
         }
     }
 }

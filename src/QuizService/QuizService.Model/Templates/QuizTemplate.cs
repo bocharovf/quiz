@@ -9,7 +9,5 @@ namespace QuizService.Model
         public string Title { get; set; }
 
         public string Description { get; set; }
-
-        //public ICollection<QuizQuestionTemplate> QuizQuestions { get; set; } = new List<QuizQuestionTemplate>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using QuizService.BusinessLogic.Scores;
+using QuizService.Common.Extensions;
 using QuizService.Model;
 using Xunit;
 

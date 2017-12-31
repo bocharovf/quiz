@@ -2,11 +2,6 @@
 {
     public class QuizQuestionTemplate
     {
-        public QuizQuestionTemplate()
-        {
-
-        }
-
         public QuizQuestionTemplate(QuizTemplate quizTemplate, QuestionTemplate questionTemplate, int order)
         {
             this.QuizTemplate = quizTemplate;

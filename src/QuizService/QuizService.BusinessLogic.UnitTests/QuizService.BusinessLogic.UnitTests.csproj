@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QuizService.BusinessLogic\QuizService.BusinessLogic.csproj" />
+    <ProjectReference Include="..\QuizService.Common\QuizService.Common.csproj" />
   </ItemGroup>
 
 </Project>

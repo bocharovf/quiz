@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Interfaces", "Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.BusinessLogic", "QuizService.BusinessLogic\QuizService.BusinessLogic.csproj", "{DB180779-886D-40AF-8FC6-3035B78B6EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizService.UnitTests", "QuizService.UnitTests\QuizService.UnitTests.csproj", "{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.UnitTests", "QuizService.UnitTests\QuizService.UnitTests.csproj", "{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizService.BusinessLogic.UnitTests", "QuizService.BusinessLogic.UnitTests\QuizService.BusinessLogic.UnitTests.csproj", "{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.BusinessLogic.UnitTests", "QuizService.BusinessLogic.UnitTests\QuizService.BusinessLogic.UnitTests.csproj", "{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Common", "QuizService.Common\QuizService.Common.csproj", "{5061CC29-4C33-495D-BD10-638BCEE6C524}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -233,7 +233,7 @@ namespace QuizService.BusinessLogic.UnitTests
             // Assert
             Assert.True(questionStub.IsAnswered);
             Assert.Single(questionStub.Answers);
-            Assert.True(questionStub.Answers[0].IsCorrect);
+            Assert.True(questionStub.Answers.First().IsCorrect);
         }
 
         [Fact]

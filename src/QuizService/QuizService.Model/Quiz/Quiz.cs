@@ -20,7 +20,7 @@ namespace QuizService.Model
 
         public DateTime? DateEnd { get; set; }
 
-        public List<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; }
 
         public bool IsCompleted => DateEnd.HasValue;
 
