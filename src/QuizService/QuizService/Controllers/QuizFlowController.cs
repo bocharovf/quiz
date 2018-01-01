@@ -11,12 +11,12 @@ namespace QuizService.Controllers
     [QuizExceptionFilter]
     [Produces("application/json")]
     [Route("api/quizzes")]
-    public class QuizController : Controller
+    public class QuizFlowController : Controller
     {
         private IUnitOfWork Uow;
         private IQuizFlowManager QuizFlowManager;
 
-        public QuizController(IQuizFlowManager quizFlowManager, IUnitOfWork uow)
+        public QuizFlowController(IQuizFlowManager quizFlowManager, IUnitOfWork uow)
         {
             this.QuizFlowManager = quizFlowManager;
             this.Uow = uow;

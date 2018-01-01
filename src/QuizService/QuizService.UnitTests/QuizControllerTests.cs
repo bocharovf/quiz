@@ -40,7 +40,7 @@ namespace QuizService.UnitTests
             mockManager.Setup(manager => manager.StartNewQuiz(It.IsAny<QuizTemplate>()))
                        .Returns(quizStub);
 
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act
             var response = controller.Start(1);
@@ -66,7 +66,7 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
 
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.Start(1));
@@ -96,7 +96,7 @@ namespace QuizService.UnitTests
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.GetNextQuestion(It.IsAny<Quiz>()))
                        .Returns(commandStub);
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act
             var response = controller.GetNextQuestion(1);
@@ -121,7 +121,7 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
 
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.GetNextQuestion(1));
@@ -154,7 +154,7 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.AnswerQuestion(It.IsAny<Question>(), It.IsAny<int>()));
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act
             var response = controller.AnswerQuestion(1, 2, 3);
@@ -177,7 +177,7 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.AnswerQuestion(1, 2, 3));
@@ -199,7 +199,7 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.AnswerQuestion(1, 2, 3));
@@ -226,7 +226,7 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.CompleteQuiz(It.IsAny<Quiz>()));
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act
             var response = controller.CompleteQuiz(1);
@@ -249,7 +249,7 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.CompleteQuiz(1));
