@@ -41,18 +41,35 @@ namespace QuizService.BusinessLogic.QuizFlow
             ThrowIf.Null(quiz, nameof(quiz));
             ThrowIf.Completed(quiz);
 
-            Question lastQuestion = quiz.LastQuestion;
-            if (lastQuestion != null && !lastQuestion.IsAnswered)
+            Question currentQuestion = quiz.CurrentQuestion;
+
+            QuizFlowCommandContract command;
+            if (currentQuestion != null && !currentQuestion.IsAnswered)
             {
-                throw new QuizFlowException(
-                    QuizFlowErrorCodes.LastQuestionNotAnswered, 
-                    "You must answer previous question."
-                );
+                command = this.GetCommandFromCurrentQuestion(quiz, currentQuestion);
+            }
+            else
+            {
+                command = this.CreateCommandFromNextQuestion(quiz, currentQuestion);
             }
 
-            int nextQuestionOrder = lastQuestion == null ? 1 : lastQuestion.Order + 1;
+            this.Uow.Save();
+            command.HideAnswerCorrectness();
+            return command;
+        }
 
-            QuestionTemplate questionTemplate = this.Uow.QuestionTemplateRepository.GetQuestionTemplate(quiz.TemplateId, nextQuestionOrder);
+        private QuizFlowCommandContract GetCommandFromCurrentQuestion(Quiz quiz, Question currentQuestion)
+        {
+            var questionTemplate = this.Uow.QuestionTemplateRepository.GetByID(currentQuestion.TemplateId);
+            var command = new QuizFlowCommandProceedContract(currentQuestion, questionTemplate);
+            return command;
+        }
+
+        private QuizFlowCommandContract CreateCommandFromNextQuestion(Quiz quiz, Question currentQuestion)
+        {
+            int nextQuestionOrder = currentQuestion == null ? 1 : currentQuestion.Order + 1;
+            var questionTemplate = this.Uow.QuestionTemplateRepository
+                                           .GetQuestionTemplate(quiz.TemplateId, nextQuestionOrder);
             if (questionTemplate == null)
             {
                 return new QuizFlowCommandFinishContract();
@@ -63,17 +80,13 @@ namespace QuizService.BusinessLogic.QuizFlow
                 Quiz = quiz,
                 TemplateId = questionTemplate.Id,
                 Order = nextQuestionOrder,
-                DateStart = DateTime.Now                
+                DateStart = DateTime.Now
             };
-
             quiz.Questions.Add(nextQuestion);
-            this.Uow.Save();
 
-            var command = new QuizFlowCommandProceedContract(nextQuestion, questionTemplate);
-            command.HideAnswerCorrectness();
-            return command;
+            return new QuizFlowCommandProceedContract(nextQuestion, questionTemplate);
         }
-
+        
         public void AnswerQuestion(Question question, int answerTemplateId)
         {
             ThrowIf.Null(question, nameof(question));

@@ -46,7 +46,7 @@ namespace QuizService.Controllers
 
         // PATCH api/quizzes/{quizId}/questions/{questionId}?answerTemplateId={answerTemplateId}
         [HttpPatch("{quizId}/questions/{questionId}")]
-        public IActionResult AnswerQuestion(int quizId, int questionId, int answerTemplateId)
+        public IActionResult AnswerQuestion(int quizId, int questionId, [FromQuery] int answerTemplateId)
         {
             Quiz quiz = this.Uow.QuizRepository.GetByID(quizId);
             ThrowIf.NotFound(quiz, quizId);

@@ -11,5 +11,14 @@ namespace QuizService.DataAccess.Repository
         {
 
         }
+
+        public int GetQuestionTemplateCount(int quizTemplateId)
+        {
+            var questionTemplateCount = this.context.QuizQuestionTemplates
+                                                    .Where(qqt => qqt.QuizTemplateId == quizTemplateId)
+                                                    .Count();
+
+            return questionTemplateCount;
+        }
     }
 }

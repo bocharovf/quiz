@@ -7,6 +7,6 @@ namespace QuizService.Interfaces.Repository
 {
     public interface IQuizTemplateRepository: IGenericRepository<QuizTemplate, int>
     {
-        
+        int GetQuestionTemplateCount(int quizTemplateId);
     }
 }

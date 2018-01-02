@@ -53,23 +53,53 @@ namespace QuizService.BusinessLogic.UnitTests
         #region GetNextQuestion
 
         [Fact]
-        public void GetNextQuestion_WhenLastQuestionNotAnswered_ThrowsQuizFlow()
+        public void GetNextQuestion_WhenCurrentQuestionNotAnswered_ReturnsQuizProceedCommandWithCurrentQuestion()
         {
             // Arrange
-            var quizStub = new Quiz();
-            var questionStub = new Question() {
-                Order = 1,
-                DateStart = DateTime.Now,
-                DateEnd = null
+            var quiz = new Quiz()
+            {
+                Id = 1
             };
-            quizStub.Questions.Add(questionStub);
-            
+            var currentQuestion = new Question()
+            {
+                Id = 2,
+                Quiz = quiz
+            };
+            quiz.Questions.Add(currentQuestion);
+
+            var questionTemplate = new QuestionTemplate();
+            questionTemplate.Answers.Add(new AnswerTemplate()
+            {
+                IsCorrect = false
+            });
+            questionTemplate.Answers.Add(new AnswerTemplate()
+            {
+                IsCorrect = true
+            });
+
+            var mockQuizRepo = new Mock<IQuizRepository>();
+            var mockQuestionTemplateRepo = new Mock<IQuestionTemplateRepository>();
+            mockQuestionTemplateRepo
+                .Setup(repo => repo.GetByID(It.IsAny<int>()))
+                .Returns(questionTemplate);
+
             var mockUow = new Mock<IUnitOfWork>();
+            mockUow.Setup(repo => repo.QuizRepository)
+                .Returns(mockQuizRepo.Object);
+            mockUow.Setup(repo => repo.QuestionTemplateRepository)
+                .Returns(mockQuestionTemplateRepo.Object);
+
             var manager = new QuizFlowManager(mockUow.Object, null);
 
-            // Act & Assert
-            var ex = Assert.Throws<QuizFlowException>(() => manager.GetNextQuestion(quizStub));
-            Assert.Equal(QuizFlowErrorCodes.LastQuestionNotAnswered.ToString(), ex.ErrorCode);
+            // Act
+            var command = manager.GetNextQuestion(quiz);
+
+            // Assert
+            var commandProceed = Assert.IsType<QuizFlowCommandProceedContract>(command);
+            Assert.Equal(1, commandProceed.QuizId);
+            Assert.Equal(2, commandProceed.QuestionId);
+            Assert.Equal(2, commandProceed.Template.Answers.Count);
+            Assert.DoesNotContain(commandProceed.Template.Answers, answer => answer.IsCorrect);
         }
 
         [Fact]
@@ -98,7 +128,7 @@ namespace QuizService.BusinessLogic.UnitTests
         }
 
         [Fact]
-        public void GetNextQuestion_WhenNewQuizAndNextQuestionFound_ReturnsQuizProceedCommand()
+        public void GetNextQuestion_WhenNextQuestionFound_ReturnsQuizProceedCommandWithNextQuestion()
         {
             // Arrange
             var quiz = new Quiz()

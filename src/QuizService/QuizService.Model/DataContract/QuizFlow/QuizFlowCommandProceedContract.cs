@@ -17,7 +17,7 @@ namespace QuizService.Model.DataContract
             this.Template = questionTemplate;
         }
 
-        public void HideAnswerCorrectness()
+        public override void HideAnswerCorrectness()
         {
             foreach (var answerTemplate in this.Template.Answers)
             {

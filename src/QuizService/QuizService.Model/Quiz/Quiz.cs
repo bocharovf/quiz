@@ -24,7 +24,7 @@ namespace QuizService.Model
 
         public bool IsCompleted => DateEnd.HasValue;
 
-        public Question LastQuestion
+        public Question CurrentQuestion
         {
             get
             {
