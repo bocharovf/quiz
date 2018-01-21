@@ -7,13 +7,15 @@ namespace QuizService.Model.DataContract
     {
         public override QuizFlowCommandType CommandType => QuizFlowCommandType.QuizProceed;
         public int QuizId { get; }
-        public int QuestionId { get; }
         public QuestionTemplate Template { get; }
+
+        private Question question;
+        public int QuestionId => question.Id;
 
         public QuizFlowCommandProceedContract(Question question, QuestionTemplate questionTemplate)
         {
             this.QuizId = question.Quiz.Id;
-            this.QuestionId = question.Id;
+            this.question = question;
             this.Template = questionTemplate;
         }
 

@@ -10,5 +10,10 @@ namespace QuizService.DataAccess.Repository
         internal ScoreRepository(ApplicationDatabaseContext context) : base(context)
         {
         }
+
+        public Score GetQuizScore(int quizId)
+        {
+            return this.context.Scores.FirstOrDefault(score => score.QuizId == quizId);
+        }
     }
 }

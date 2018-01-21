@@ -50,5 +50,20 @@ namespace QuizService.Controllers
             ThrowIf.NotFound(score, scoreId);
             return Ok(score);
         }
+
+        [HttpGet("quizzes/{quizId}/scores")]
+        public IActionResult GetQuizScore(int quizId)
+        {
+            var score = this.Uow.ScoreRepository.GetQuizScore(quizId);
+            ThrowIf.NotFound(score);
+
+            return Ok(score);
+        }
+
+        [HttpGet("quizzes")]
+        public IActionResult GetQuizzes()
+        {
+            return Ok(this.Uow.QuizRepository.Get());
+        }
     }
 }

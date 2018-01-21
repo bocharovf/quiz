@@ -22,6 +22,16 @@ namespace QuizService.Controllers
             this.Uow = uow;
         }
 
+        // GET api/quizzes/{quizId}
+        [HttpGet("{quizId}")]
+        public IActionResult GetQuiz(int quizId)
+        {
+            var quiz = this.Uow.QuizRepository.GetByID(quizId);
+            ThrowIf.NotFound(quiz, quizId);
+
+            return Ok(quiz);
+        }
+
         // POST api/quizzes?templateId={templateId}
         [HttpPost]
         public IActionResult Start([FromQuery] int templateId)
@@ -59,7 +69,7 @@ namespace QuizService.Controllers
         }
 
         // POST api/quizzes/{quizId}/complete
-        [HttpPatch("{quizId}/complete")]
+        [HttpPost("{quizId}/complete")]
         public IActionResult CompleteQuiz(int quizId)
         {
             Quiz quiz = this.Uow.QuizRepository.GetByID(quizId);
