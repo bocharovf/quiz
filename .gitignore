@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/QuizService/QuizService.CodeGen/Scripts/TypeLite.Net4.g.ts
