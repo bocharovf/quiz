@@ -21,8 +21,10 @@ namespace QuizService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddCors()
+                    .AddMvc()
                     .AddJsonOptions(JsonSerializationConfiguration.Setup);
+
             ServiceConfiguration.ConfigureServices(services, this.Configuration);
         }
 
@@ -33,10 +35,8 @@ namespace QuizService
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseMvc();
-
-            
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
+            app.UseMvc();            
         }
     }
 }
