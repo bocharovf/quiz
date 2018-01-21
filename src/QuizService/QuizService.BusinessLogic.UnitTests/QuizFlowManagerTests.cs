@@ -6,6 +6,7 @@ using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Repository;
 using QuizService.Model;
 using QuizService.Model.DataContract;
+using QuizService.Model.Exceptions;
 using System;
 using System.Linq;
 using Xunit;

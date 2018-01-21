@@ -19,7 +19,7 @@ namespace QuizService.Filters
                 StatusCode = StatusCodes.Status500InternalServerError
             };
 
-            if (ex is BusinessLogicException businessLogicException)
+            if (ex is IBusinessLogicException businessLogicException)
             {
                 var errorData = new ServiceExceptionContract(businessLogicException);
                 if (ex is EntityNotFoundException)

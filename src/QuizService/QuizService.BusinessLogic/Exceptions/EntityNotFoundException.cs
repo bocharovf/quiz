@@ -4,7 +4,7 @@ using System;
 namespace QuizService.BusinessLogic.Exceptions
 {
     [Serializable]
-    public class EntityNotFoundException : BusinessLogicException
+    public class EntityNotFoundException : Exception, IEntityNotFoundException
     {
         private const string ErrorCodeVaue = "EntityNotFound";
 
@@ -12,9 +12,13 @@ namespace QuizService.BusinessLogic.Exceptions
 
         public object EntityId { get; }
 
-        public override string ErrorCode => ErrorCodeVaue;
+        public string ErrorCode => ErrorCodeVaue;
 
-        public override object Extension => new { this.EntityType, this.EntityId };
+        public object Extension => new { this.EntityType, this.EntityId };
+
+        public EntityNotFoundException(Type entityType) : this(entityType, null)
+        {
+        }
 
         public EntityNotFoundException(Type entityType, object entityId) : base(ErrorCodeVaue)
         {
@@ -26,7 +30,9 @@ namespace QuizService.BusinessLogic.Exceptions
         {
             get
             {
-                return $"{EntityType} with identifier {EntityId} was not found.";
+                return EntityId == null 
+                        ? $"{EntityType} was not found."
+                        : $"{EntityType} with identifier {EntityId} was not found.";
             }
 
         }

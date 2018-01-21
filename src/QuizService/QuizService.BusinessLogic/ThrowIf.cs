@@ -1,15 +1,22 @@
 ﻿using QuizService.BusinessLogic.Exceptions;
 using QuizService.Model;
+using QuizService.Model.Exceptions;
 using System;
 
 namespace QuizService.BusinessLogic
 {
     public static class ThrowIf
     {
-        public static void NotFound<T, K>(T entity,K key)
+        public static void NotFound<T, K>(T entity, K key)
         {
             if (entity == null)
                 throw new EntityNotFoundException(typeof(T), key);
+        }
+
+        public static void NotFound<T>(T entity)
+        {
+            if (entity == null)
+                throw new EntityNotFoundException(typeof(T));
         }
 
         public static void Null(object argument, string argumentName)

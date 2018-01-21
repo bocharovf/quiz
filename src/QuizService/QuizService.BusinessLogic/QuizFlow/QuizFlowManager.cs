@@ -4,6 +4,7 @@ using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Managers;
 using QuizService.Model;
 using QuizService.Model.DataContract;
+using QuizService.Model.Exceptions;
 using System;
 using System.Linq;
 

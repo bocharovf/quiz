@@ -1,9 +1,10 @@
-﻿using System;
+﻿using QuizService.Model.Exceptions;
+using System;
 
-namespace QuizService.Model.Exceptions
+namespace QuizService.BusinessLogic.Exceptions
 {
     [Serializable]
-    public class BusinessLogicException : Exception
+    public class BusinessLogicException : Exception, IBusinessLogicException
     {
         public virtual string ErrorCode { get; }
 

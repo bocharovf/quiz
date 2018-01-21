@@ -4,7 +4,7 @@ namespace QuizService.Model.DataContract
 {
     public class ServiceExceptionContract : IServiceExceptionContract
     {
-        private BusinessLogicException Exception;
+        private IBusinessLogicException Exception;
 
         public string ErrorCode => this.Exception.ErrorCode;
 
@@ -12,7 +12,7 @@ namespace QuizService.Model.DataContract
 
         public object Extension => this.Exception.Extension;
 
-        public ServiceExceptionContract(BusinessLogicException businessLogicException)
+        public ServiceExceptionContract(IBusinessLogicException businessLogicException)
         {
             this.Exception = businessLogicException;
         }

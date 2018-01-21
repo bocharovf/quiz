@@ -1,9 +1,9 @@
-﻿namespace QuizService.BusinessLogic.Exceptions
+﻿namespace QuizService.Model.Exceptions
 {
     public enum QuizFlowErrorCodes
     {
         Unknown,
-        LastQuestionNotAnswered,
+
         QuestionAlreadyAnswered,
         QuizAlreadyCompleted
     }
