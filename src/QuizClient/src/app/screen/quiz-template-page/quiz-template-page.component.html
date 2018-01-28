@@ -1,0 +1,10 @@
+<mat-sidenav-container class="page-container">
+  <mat-sidenav mode="side" opened="true" class="page-sidebar">
+    <quiz-template-list #templateList></quiz-template-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="page-content">
+    <quiz-template-details
+      [quizTemplate]="templateList.selectedQuiz">
+    </quiz-template-details>
+  </mat-sidenav-content>
+</mat-sidenav-container>

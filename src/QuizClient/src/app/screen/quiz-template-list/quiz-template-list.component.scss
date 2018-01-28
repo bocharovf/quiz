@@ -1,0 +1,8 @@
+.item-container {
+    &:hover, &:active {
+        cursor: pointer;
+        background-color: #ccc;
+        transition: background-color 200ms linear;
+    }
+    background-color: #fff;
+}

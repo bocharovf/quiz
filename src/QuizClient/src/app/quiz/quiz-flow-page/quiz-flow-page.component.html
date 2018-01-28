@@ -1,0 +1,18 @@
+
+<div *ngIf="errorMessage" class="error-container">
+    <h2>{{ errorMessage }}</h2>
+
+    <button mat-raised-button
+        color="primary"
+        routerLink="{{ homeLink }}"
+        routerLinkActive="active">
+        Back to home
+        <mat-icon>home</mat-icon>
+    </button>
+</div>
+
+<div *ngIf="!errorMessage" class="quiz-container">
+    <quiz-flow-question
+        [componentData]="currentQuestion"
+        (answered)="questionAnswered($event)"></quiz-flow-question>
+</div>
