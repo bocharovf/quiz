@@ -7,8 +7,9 @@ import { QuizTemplate, Quiz } from '../codegen/model.g';
 
 @Injectable()
 export class QuizScreenDataService {
-  private readonly quizTemplatesUrl = `${environment.serverBaseUrl}/quiz-templates`;
-  private readonly quizzesUrl = `${environment.serverBaseUrl}/quizzes`;
+  private readonly apiUrl = `${environment.apiProtocol}://${window.location.hostname}:${environment.apiPort}/api`;
+  private readonly quizTemplatesUrl = `${this.apiUrl}/quiz-templates`;
+  private readonly quizzesUrl = `${this.apiUrl}/quizzes`;
 
   constructor(private http: HttpClient) { }
 

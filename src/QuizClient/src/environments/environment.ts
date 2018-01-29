@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  serverBaseUrl: 'http://localhost:56712/api'
+  apiPort: 56712,
+  apiProtocol: 'http'
 };

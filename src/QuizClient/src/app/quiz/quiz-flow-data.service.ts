@@ -7,7 +7,8 @@ import { QuizTemplate, Quiz, QuizFlowCommandContract } from '../codegen/model.g'
 
 @Injectable()
 export class QuizFlowDataService {
-  private readonly baseUrl = `${environment.serverBaseUrl}/quizzes`;
+  private readonly apiUrl = `${environment.apiProtocol}://${window.location.hostname}:${environment.apiPort}/api`;
+  private readonly baseUrl = `${this.apiUrl}/quizzes`;
 
   constructor(private http: HttpClient) { }
 
