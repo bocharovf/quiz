@@ -14,9 +14,20 @@ services:
     build:
       context: ./QuizService
       dockerfile: Dockerfile
+    ports:
+      - "8080:80"
     environment: *environment
     depends_on:
     - database
+  quizclient:
+    image: quizclient
+    build:
+      context: ./QuizClient
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"      
+    depends_on:
+    - quizservice    
 
 volumes:
   data-volume:

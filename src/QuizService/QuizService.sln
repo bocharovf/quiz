@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService", "QuizService\QuizService.csproj", "{E02A32CC-CC12-4443-AB62-229537EEE4D5}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DD6DF444-6D69-4567-9361-501D6C11D542}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Model", "QuizService.Model\QuizService.Model.csproj", "{E312D07C-D863-4C0E-B851-2D4B426C4DA7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.DataAccess", "QuizService.DataAccess\QuizService.DataAccess.csproj", "{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}"
@@ -33,10 +31,6 @@ Global
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
