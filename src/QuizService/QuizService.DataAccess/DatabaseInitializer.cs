@@ -1,4 +1,5 @@
-﻿using QuizService.Common.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using QuizService.Common.Extensions;
 using QuizService.Model;
 using System.Linq;
 
@@ -13,19 +14,20 @@ namespace QuizService.DataAccess
 #if DEBUG
                 context.Database.EnsureDeleted();
 #endif
-
-                context.Database.EnsureCreated();
-
-#if DEBUG
+                
+                context.Database.Migrate();
                 InitializeData(context);
-#endif
-
                 context.SaveChanges();
             }
         }
 
         private static void InitializeData(ApplicationDatabaseContext context)
         {
+            if (context.QuizTemplates.Any())
+            {
+                return;
+            }
+
             var question1 = new QuestionTemplate()
             {
                 QuestionType = QuestionType.SingleRight,
@@ -82,8 +84,8 @@ namespace QuizService.DataAccess
 
             var quizTemplate = new QuizTemplate()
             {
-                Title = "Test quize template",
-                Description = "Test quize template description",
+                Title = "Simple literature quiz",
+                Description = "Short demo quiz about literature.",
             };
 
             var quizQuestion1 = new QuizQuestionTemplate(quizTemplate, question1, 1) {
