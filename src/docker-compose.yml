@@ -10,24 +10,18 @@ services:
     volumes:
       - data-volume:/var/lib/postgresql/data
   quizservice:
-    image: quizservice
-    build:
-      context: ./QuizService
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
+    image: bocharovf/quizservice
+    restart: always    
     environment: *environment
     depends_on:
     - database
   quizclient:
-    image: quizclient
-    build:
-      context: ./QuizClient
-      dockerfile: Dockerfile
+    image: bocharovf/quizclient
+    restart: always
     ports:
       - "80:80"      
     depends_on:
-    - quizservice    
+    - quizservice
 
 volumes:
   data-volume:
