@@ -3,6 +3,9 @@ using System;
 
 namespace QuizService.Interfaces.Common
 {
+    /// <summary>
+    /// Unit of work interface.
+    /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         IQuizRepository QuizRepository { get; }
@@ -10,6 +13,9 @@ namespace QuizService.Interfaces.Common
         IQuestionTemplateRepository QuestionTemplateRepository { get; }
         IScoreRepository ScoreRepository { get; }
 
+        /// <summary>
+        /// Saves changes in all repositories in single transacion.
+        /// </summary>
         void Save();
     }
 }

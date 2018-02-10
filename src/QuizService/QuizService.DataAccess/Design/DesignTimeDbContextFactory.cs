@@ -2,6 +2,9 @@
 
 namespace QuizService.DataAccess.Design
 {
+    /// <summary>
+    /// Design time database context factory for migrations support.
+    /// </summary>
     class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDatabaseContext>
     {
         public ApplicationDatabaseContext CreateDbContext(string[] args)

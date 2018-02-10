@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace QuizService.Model.DataContract
+﻿namespace QuizService.Model.DataContract
 {
+    /// <summary>
+    /// Quiz flow command to proceed the qiuz with the next question.
+    /// </summary>
     public class QuizFlowCommandProceedContract : QuizFlowCommandContract
     {
         public override QuizFlowCommandType CommandType => QuizFlowCommandType.QuizProceed;
+        public int QuestionId => question.Id;
         public int QuizId { get; }
         public QuestionTemplate Template { get; }
 
         private Question question;
-        public int QuestionId => question.Id;
 
         public QuizFlowCommandProceedContract(Question question, QuestionTemplate questionTemplate)
         {

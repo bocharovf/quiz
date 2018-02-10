@@ -5,8 +5,15 @@ using System.Linq;
 
 namespace QuizService.DataAccess
 {
+    /// <summary>
+    /// Performs database data initialization.
+    /// </summary>
     public class DatabaseInitializer
     {
+        /// <summary>
+        /// Initializes database.
+        /// </summary>
+        /// <param name="connectionString">The database connection string.</param>
         public static void InitializeDatabase(string connectionString)
         {
             using (var context = ApplicationDatabaseContextFactory.CreateContext(connectionString))

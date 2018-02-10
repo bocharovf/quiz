@@ -6,10 +6,12 @@ using QuizService.Model;
 using QuizService.Model.DataContract;
 using QuizService.Model.Exceptions;
 using System;
-using System.Linq;
 
 namespace QuizService.BusinessLogic.QuizFlow
 {
+    /// <summary>
+    /// Provides methods for quiz flow management.
+    /// </summary>
     public class QuizFlowManager : IQuizFlowManager
     {
         private IUnitOfWork Uow;
@@ -21,6 +23,11 @@ namespace QuizService.BusinessLogic.QuizFlow
             this.ScoreCalculationFactory = scoreCalculationFactory;
         }
 
+        /// <summary>
+        /// Starts new quiz from specified quiz template.
+        /// </summary>
+        /// <param name="quizTemplate">The quiz template for new quiz.</param>
+        /// <returns>New quiz.</returns>
         public Quiz StartNewQuiz(QuizTemplate quizTemplate)
         {
             ThrowIf.Null(quizTemplate, nameof(quizTemplate));
@@ -37,6 +44,11 @@ namespace QuizService.BusinessLogic.QuizFlow
             return quiz;
         }
 
+        /// <summary>
+        /// Gets next question of the specified quiz.
+        /// </summary>
+        /// <param name="quizId">The quiz to get question from.</param>
+        /// <returns>Quiz flow command to manage quiz flow.</returns>
         public QuizFlowCommandContract GetNextQuestion(Quiz quiz)
         {
             ThrowIf.Null(quiz, nameof(quiz));
@@ -87,7 +99,12 @@ namespace QuizService.BusinessLogic.QuizFlow
 
             return new QuizFlowCommandProceedContract(nextQuestion, questionTemplate);
         }
-        
+
+        /// <summary>
+        /// Answers specified quiz question.
+        /// </summary>
+        /// <param name="question">The question to answer.</param>
+        /// <param name="answerTemplateId">The answer template identifier.</param>
         public void AnswerQuestion(Question question, int answerTemplateId)
         {
             ThrowIf.Null(question, nameof(question));
@@ -117,6 +134,10 @@ namespace QuizService.BusinessLogic.QuizFlow
             this.Uow.Save();
         }
 
+        /// <summary>
+        /// Completes the quiz.
+        /// </summary>
+        /// <param name="quiz">The quiz to complete.</param>
         public void CompleteQuiz(Quiz quiz)
         {
             ThrowIf.Null(quiz, nameof(quiz));

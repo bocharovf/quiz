@@ -18,12 +18,14 @@ namespace QuizService.Controllers
             this.Uow = uow;
         }
 
+        // GET /api/quiz-templates
         [HttpGet("quiz-templates")]
         public IActionResult GetQuizTemplates()
         {
             return Ok(this.Uow.QuizTemplateRepository.Get());
         }
 
+        // GET /api/quiz-templates/{id}
         [HttpGet("quiz-templates/{quizTemplateId}")]
         public IActionResult GetQuizTemplate(int quizTemplateId)
         {
@@ -37,12 +39,14 @@ namespace QuizService.Controllers
             return Ok(quizTemplateDetails);
         }
 
+        // GET /api/scores
         [HttpGet("scores")]
         public IActionResult GetScores()
         {
             return Ok(this.Uow.ScoreRepository.Get());
         }
 
+        // GET /api/scores/{scoreId}
         [HttpGet("scores/{scoreId}")]
         public IActionResult GetScore(int scoreId)
         {
@@ -51,6 +55,7 @@ namespace QuizService.Controllers
             return Ok(score);
         }
 
+        // GET /api/quizzes/{quizId}/scores
         [HttpGet("quizzes/{quizId}/scores")]
         public IActionResult GetQuizScore(int quizId)
         {
@@ -60,6 +65,7 @@ namespace QuizService.Controllers
             return Ok(score);
         }
 
+        // GET /api/quizzes
         [HttpGet("quizzes")]
         public IActionResult GetQuizzes()
         {

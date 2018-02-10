@@ -3,6 +3,9 @@ using System;
 
 namespace QuizService.BusinessLogic.Exceptions
 {
+    /// <summary>
+    /// Defines an exception that occured when entity is not found.
+    /// </summary>
     [Serializable]
     public class EntityNotFoundException : Exception, IEntityNotFoundException
     {

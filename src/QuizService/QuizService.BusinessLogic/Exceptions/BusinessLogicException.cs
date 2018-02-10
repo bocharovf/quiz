@@ -3,6 +3,9 @@ using System;
 
 namespace QuizService.BusinessLogic.Exceptions
 {
+    /// <summary>
+    /// Defines an exception related to application business logic.
+    /// </summary>
     [Serializable]
     public class BusinessLogicException : Exception, IBusinessLogicException
     {

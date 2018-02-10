@@ -3,7 +3,6 @@ using Moq;
 using QuizService.BusinessLogic.Exceptions;
 using QuizService.Controllers;
 using QuizService.Interfaces.Common;
-using QuizService.Interfaces.Managers;
 using QuizService.Interfaces.Repository;
 using QuizService.Model;
 using QuizService.Model.DataContract;
