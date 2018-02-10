@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Not found page.
+ */
 @Component({
   selector: 'quiz-not-found-page',
   templateUrl: './not-found-page.component.html',

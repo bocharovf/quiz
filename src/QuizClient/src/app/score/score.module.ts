@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { ScorePageComponent } from './score-page/score-page.component';
 import { ScoreDataService } from './score-data.service';
 
+/**
+ * Scores area module.
+ */
 @NgModule({
   imports: [
     CommonModule,

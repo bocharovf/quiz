@@ -8,6 +8,9 @@ import { MatRadioChange } from '@angular/material';
 import { QuestionTemplate, QuizFlowCommandType, Answer } from '../../codegen/model.g';
 import IQuestionComponent from '../IQuestionComponent';
 
+/**
+ * Displays question with choosing single right answer from multiple options.
+ */
 @Component({
   selector: 'quiz-question-single-right',
   templateUrl: './question-single-right.component.html',

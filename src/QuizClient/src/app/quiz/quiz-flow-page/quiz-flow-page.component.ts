@@ -8,6 +8,9 @@ import { NavigationService } from '../../shared/navigation.service';
 import IQuestionComponentData from '../IQuestionComponentData';
 import * as Model from '../../codegen/model.g';
 
+/**
+ * Quiz flow page.
+ */
 @Component({
   selector: 'quiz-quiz-flow-page',
   templateUrl: './quiz-flow-page.component.html',
@@ -15,8 +18,12 @@ import * as Model from '../../codegen/model.g';
 })
 export class QuizFlowPageComponent implements OnInit, OnDestroy {
 
+  /** Current question component data. */
   currentQuestion: IQuestionComponentData;
+
+  /** Error message to display. */
   errorMessage: string;
+
   homeLink: string;
 
   private quizId: number;
@@ -47,6 +54,16 @@ export class QuizFlowPageComponent implements OnInit, OnDestroy {
     this.quizSub.unsubscribe();
   }
 
+  /**
+   * Handles question answer event.
+   * @param answer The answer.
+   */
+  questionAnswered(answer: Model.Answer) {
+    const questionId = this.currentQuestion.inputs.questionId;
+    this.quizFlowService
+        .answerQuestion(questionId, answer);
+  }
+
   private onQuizActivated(quiz: Model.Quiz) {
     if (quiz.isCompleted) {
       this.errorMessage = this.QUIZ_COMPLETED_ERROR;
@@ -66,11 +83,5 @@ export class QuizFlowPageComponent implements OnInit, OnDestroy {
           questionTemplate: command.template
         }
       };
-  }
-
-  questionAnswered(answer: Model.Answer) {
-    const questionId = this.currentQuestion.inputs.questionId;
-    this.quizFlowService
-        .answerQuestion(questionId, answer);
   }
 }

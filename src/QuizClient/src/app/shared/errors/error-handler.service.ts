@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material';
 import { IServiceExceptionContract } from '../../codegen/model.g';
 import ApplicationError from './ApplicationError';
 
+/**
+ * Provides methods for handling exceptions.
+ */
 @Injectable()
 export class ErrorHandlerService {
   private static readonly DEFAULT_ERROR_MESSAGE = 'Oops! Something went wrong ;(';
@@ -12,6 +15,10 @@ export class ErrorHandlerService {
 
   constructor(private snackBar: MatSnackBar) { }
 
+  /**
+   * Handles error.
+   * @param error Error to handle.
+   */
   handleError(error: any) {
     let errorMessage: string;
 

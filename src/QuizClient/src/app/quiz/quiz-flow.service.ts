@@ -17,11 +17,19 @@ import { ErrorHandlerService } from '../shared/errors/error-handler.service';
 import ApplicationError from '../shared/errors/ApplicationError';
 import ErrorCodes from './ErrorCodes';
 
+/**
+ * Provides methods to manage quiz flow.
+ */
 @Injectable()
 export class QuizFlowService {
 
+  /** Active quiz stream. */
   readonly activeQuiz$: Observable<Model.Quiz>;
+
+  /** Quiz flow command stream. */
   readonly quizCommand$: Observable<Model.QuizFlowCommandProceedContract>;
+
+  /** Error stream. */
   readonly error$: Observable<any>;
 
   private activeQuizId = 0;
@@ -41,6 +49,10 @@ export class QuizFlowService {
     this.error$.subscribe((error) => this.errorHandler.handleError(error));
   }
 
+  /**
+   * Activates quiz with specified identifier.
+   * @param quizId Quiz identifier.
+   */
   activateQuiz(quizId: number) {
     if (this.activeQuizId !== quizId) {
       this.dataService
@@ -54,6 +66,10 @@ export class QuizFlowService {
     }
   }
 
+  /**
+   * Starts new quiz from quiz template.
+   * @param quizTemplate Quiz template to create quiz from.
+   */
   startNewQuiz(quizTemplate: Model.QuizTemplate) {
     this.dataService
         .startNewQuiz(quizTemplate.id)
@@ -66,6 +82,9 @@ export class QuizFlowService {
         );
   }
 
+  /**
+   * Gets next question from active quiz.
+   */
   getNextQuestion() {
     this.ensureActiveQuiz().pipe(
       flatMap(() => this.activeQuiz$.first()),
@@ -79,6 +98,11 @@ export class QuizFlowService {
     );
   }
 
+  /**
+   * Answers question.
+   * @param questionId Question identifier.
+   * @param answer The question answer.
+   */
   answerQuestion(questionId: number, answer: Model.Answer) {
     this.ensureActiveQuiz().pipe(
       flatMap(() => this.activeQuiz$.first()),

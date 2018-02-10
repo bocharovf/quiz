@@ -7,6 +7,7 @@ import { QuizTemplatePageComponent } from './quiz-template-page/quiz-template-pa
 import { QuizTemplateListComponent } from './quiz-template-list/quiz-template-list.component';
 import { QuizTemplateDetailsComponent } from './quiz-template-details/quiz-template-details.component';
 
+/** Provides various screen components module. */
 @NgModule({
   imports: [
     CommonModule,

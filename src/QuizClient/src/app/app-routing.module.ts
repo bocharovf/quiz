@@ -8,6 +8,7 @@ import { QuizFlowPageComponent } from './quiz/quiz-flow-page/quiz-flow-page.comp
 import { ScorePageComponent } from './score/score-page/score-page.component';
 import { NotFoundPageComponent } from './shared/not-found-page/not-found-page.component';
 
+/** Routing settings */
 const routes: Routes = [
   { path: '', redirectTo: NavigationService.templatesRoute, pathMatch: 'full' },
   { path: NavigationService.templatesRoute, component: QuizTemplatePageComponent },
@@ -16,6 +17,9 @@ const routes: Routes = [
   { path: '**', component: NotFoundPageComponent }
 ];
 
+/**
+ * The routing module.
+ */
 @NgModule({
   imports: [ RouterModule.forRoot(routes), SharedModule ],
   exports: [ RouterModule ]

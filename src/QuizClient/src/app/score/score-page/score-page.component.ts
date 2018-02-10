@@ -5,6 +5,9 @@ import { Score } from '../../codegen/model.g';
 import { ScoreDataService } from '../score-data.service';
 import { NavigationService } from '../../shared/navigation.service';
 
+/**
+ * Quiz score page.
+ */
 @Component({
   selector: 'quiz-score-page',
   templateUrl: './score-page.component.html',
@@ -12,8 +15,12 @@ import { NavigationService } from '../../shared/navigation.service';
 })
 export class ScorePageComponent implements OnInit {
 
+  /** Quiz identifier. */
   quizId: number;
+
+  /** Scores to display. */
   score: Score;
+
   homeLink: string;
 
   constructor(
@@ -30,5 +37,4 @@ export class ScorePageComponent implements OnInit {
                            .subscribe(score => this.score = score);
     });
   }
-
 }

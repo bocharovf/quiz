@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../navigation.service';
 
+/**
+ * Application toolbar component.
+ */
 @Component({
   selector: 'quiz-toolbar',
   templateUrl: './quiz-toolbar.component.html',

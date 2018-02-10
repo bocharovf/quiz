@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { QuizTemplate, Quiz } from '../codegen/model.g';
 
+/**
+ * Provides methods to query data from server.
+ */
 @Injectable()
 export class QuizScreenDataService {
   private readonly apiUrl = `${environment.apiProtocol}://${window.location.hostname}:${environment.apiPort}/api`;
@@ -13,23 +16,23 @@ export class QuizScreenDataService {
 
   constructor(private http: HttpClient) { }
 
-  /** GET quiz templates from the server */
+  /** Gets quiz templates. */
   getQuizTemplates (): Observable<QuizTemplate[]> {
     return this.http.get<QuizTemplate[]>(this.quizTemplatesUrl);
   }
 
-  /** GET quiz template from the server */
+  /** Gets quiz template by identifier. */
   getQuizTemplate (id: number): Observable<QuizTemplate> {
     const url = `${this.quizTemplatesUrl}/${id}`;
     return this.http.get<QuizTemplate>(url);
   }
 
-  /** GET quiz from the server */
+  /** Gets quizzes. */
   getQuizzes (): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(this.quizzesUrl);
   }
 
-  /** GET quiz from the server */
+  /** Gets quiz yb identifier. */
   getQuiz (id: number): Observable<Quiz> {
     const url = `${this.quizzesUrl}/${id}`;
     return this.http.get<Quiz>(url);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+/** Quiz template page. */
 @Component({
   selector: 'quiz-quiz-template-page',
   templateUrl: './quiz-template-page.component.html',

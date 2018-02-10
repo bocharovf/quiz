@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { QuizScreenDataService } from '../quiz-screen-data.service';
 import * as Model from '../../codegen/model.g';
 
+/** Displays list of quiz templates. */
 @Component({
   selector: 'quiz-template-list',
   templateUrl: './quiz-template-list.component.html',
@@ -10,6 +11,7 @@ import * as Model from '../../codegen/model.g';
 })
 export class QuizTemplateListComponent implements OnInit {
 
+  /** List of quiz templates. */
   templates: Model.QuizTemplate[];
 
   @Output() selectedQuiz: Model.QuizTemplate;
@@ -23,6 +25,7 @@ export class QuizTemplateListComponent implements OnInit {
         .subscribe(templates => this.templates = templates);
   }
 
+  /** Handles quiz selection. */
   onQuizSelected(selectedQuiz: Model.QuizTemplate) {
     this.selectedQuiz = selectedQuiz;
   }

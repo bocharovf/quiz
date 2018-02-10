@@ -10,6 +10,9 @@ import { QuizModule } from './quiz/quiz.module';
 import { ScoreModule } from './score/score.module';
 import { AppComponent } from './app.component';
 
+/**
+ * The bootstrapper module.
+ */
 @NgModule({
   declarations: [
     AppComponent

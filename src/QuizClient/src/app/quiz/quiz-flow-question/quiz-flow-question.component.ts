@@ -13,6 +13,9 @@ import { QuestionSingleRightComponent } from '../question-single-right/question-
 import { Answer } from '../../codegen/model.g';
 import IQuestionComponent from '../IQuestionComponent';
 
+/**
+ * Container component to display appropriate question component.
+ */
 @Component({
   selector: 'quiz-flow-question',
   templateUrl: './quiz-flow-question.component.html',
@@ -21,14 +24,17 @@ import IQuestionComponent from '../IQuestionComponent';
 })
 export class QuizFlowQuestionComponent implements OnInit {
 
+  /** Emits event when question is answered. */
   @Output() answered = new EventEmitter<Answer>();
 
+  /** Gets current question component. */
   get questionComponent(): IQuestionComponent {
     return this.currentComponent
             ? <IQuestionComponent>this.currentComponent.instance
             : null;
   }
 
+  /** Determines whether question component has selected answer. */
   answerAvailable: boolean;
 
   @ViewChild('questionContainer', { read: ViewContainerRef })
@@ -42,6 +48,9 @@ export class QuizFlowQuestionComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Sets question component data.
+   */
   @Input()
   set componentData(data: IQuestionComponentData) {
     if (!data) {
@@ -54,6 +63,16 @@ export class QuizFlowQuestionComponent implements OnInit {
     this.initializeComponent();
   }
 
+  /** Accept current answer. */
+  acceptAnswer() {
+    const answer = this.questionComponent.getAnswer();
+    this.answered.emit(answer);
+  }
+
+  /**
+   * Creates appropriate question component.
+   * @param data Question component data.
+   */
   private createComponent (data: IQuestionComponentData): ComponentRef<{}> {
     const inputProviders = Object.keys(data.inputs).map(inputName =>
       ({
@@ -69,6 +88,10 @@ export class QuizFlowQuestionComponent implements OnInit {
     return component;
   }
 
+  /**
+   * Updates current question component with a new one.
+   * @param component Question component to replace current one.
+   */
   private updateCurrentComponent(component: ComponentRef<{}>) {
     if (this.currentComponent) {
       this.currentComponent.destroy();
@@ -77,15 +100,13 @@ export class QuizFlowQuestionComponent implements OnInit {
     this.currentComponent = component;
   }
 
+  /**
+   * Initializes question component.
+   */
   private initializeComponent() {
     this.answerAvailable = false;
     this.questionComponent
         .answered
         .subscribe(isAvailable => this.answerAvailable = isAvailable);
-  }
-
-  acceptAnswer() {
-    const answer = this.questionComponent.getAnswer();
-    this.answered.emit(answer);
   }
 }

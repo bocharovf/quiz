@@ -11,6 +11,9 @@ import { QuizFlowPageComponent } from './quiz-flow-page/quiz-flow-page.component
 import { QuestionSingleRightComponent } from './question-single-right/question-single-right.component';
 import { QuizFlowQuestionComponent } from './quiz-flow-question/quiz-flow-question.component';
 
+/**
+ * Controls quiz flow execution.
+ */
 @NgModule({
   imports: [
     CommonModule,

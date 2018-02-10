@@ -8,6 +8,9 @@ import { ErrorHandlerService } from './errors/error-handler.service';
 import { QuizToolbarComponent } from './quiz-toolbar/quiz-toolbar.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
+/**
+ * Provides shared functionality.
+ */
 @NgModule({
   imports: [
     CommonModule,
