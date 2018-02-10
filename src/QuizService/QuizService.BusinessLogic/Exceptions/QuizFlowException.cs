@@ -1,4 +1,4 @@
-﻿using QuizService.Model.Exceptions;
+﻿using QuizService.Model;
 using System;
 
 namespace QuizService.BusinessLogic.Exceptions
@@ -7,19 +7,18 @@ namespace QuizService.BusinessLogic.Exceptions
     /// Defines an exception in quiz flow logic.
     /// </summary>
     [Serializable]
-    public class QuizFlowException : Exception, IBusinessLogicException
+    public class QuizFlowException : BusinessLogicException
     {
-        private string CustomErrorCode;
+        public QuizFlowException(QuizFlowErrorCodes errorCode, string message) : 
+            this(errorCode, message, null) {
+        }
 
-        public string ErrorCode => this.CustomErrorCode;
+        public QuizFlowException(QuizFlowErrorCodes errorCode, string message, Exception inner): 
+            base(ConvertErrorCode(errorCode), message, inner) {
+        }
 
-        public object Extension => null;
-
-        public QuizFlowException(QuizFlowErrorCodes errorCode, string message) : this(errorCode, message, null) { }
-
-        public QuizFlowException(QuizFlowErrorCodes errorCode, string message, Exception inner): base(message, inner)
-        {
-            this.CustomErrorCode = errorCode.ToString();
+        private static string ConvertErrorCode(QuizFlowErrorCodes errorCode) {
+            return errorCode.ToString();
         }
     }
 }

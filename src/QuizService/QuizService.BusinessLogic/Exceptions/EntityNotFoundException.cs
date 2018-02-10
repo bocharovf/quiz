@@ -1,5 +1,4 @@
-﻿using QuizService.Model.Exceptions;
-using System;
+﻿using System;
 
 namespace QuizService.BusinessLogic.Exceptions
 {
@@ -7,37 +6,42 @@ namespace QuizService.BusinessLogic.Exceptions
     /// Defines an exception that occured when entity is not found.
     /// </summary>
     [Serializable]
-    public class EntityNotFoundException : Exception, IEntityNotFoundException
+    public class EntityNotFoundException : BusinessLogicException
     {
-        private const string ErrorCodeVaue = "EntityNotFound";
+        private const string ErrorCodeValue = "EntityNotFound";
 
+        /// <summary>
+        /// Gets entity identifier.
+        /// </summary>
         public string EntityType { get; }
 
+        /// <summary>
+        /// Gets entity type name.
+        /// </summary>
         public object EntityId { get; }
 
-        public string ErrorCode => ErrorCodeVaue;
+        /// <summary>
+        /// Gets additional exception properties.
+        /// </summary>
+        public override object Extension => new { this.EntityType, this.EntityId };
 
-        public object Extension => new { this.EntityType, this.EntityId };
-
-        public EntityNotFoundException(Type entityType) : this(entityType, null)
+        public EntityNotFoundException(Type entityType): 
+            this(entityType, null)
         {
         }
 
-        public EntityNotFoundException(Type entityType, object entityId) : base(ErrorCodeVaue)
+        public EntityNotFoundException(Type entityType, object entityId): 
+            base(ErrorCodeValue, CreateMessage(entityType, entityId))
         {
             this.EntityId = entityId;
             this.EntityType = entityType.Name;
         }
 
-        public override string Message
+        private static string CreateMessage(Type entityType, object entityId)
         {
-            get
-            {
-                return EntityId == null 
-                        ? $"{EntityType} was not found."
-                        : $"{EntityType} with identifier {EntityId} was not found.";
-            }
-
+            return entityId == null
+                    ? $"{entityType} was not found."
+                    : $"{entityType} with identifier {entityId} was not found.";
         }
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using QuizService.BusinessLogic.Exceptions;
 using QuizService.Model.DataContract;
-using QuizService.Model.Exceptions;
 using System;
 
 namespace QuizService.Filters
@@ -19,7 +18,7 @@ namespace QuizService.Filters
                 StatusCode = StatusCodes.Status500InternalServerError
             };
 
-            if (ex is IBusinessLogicException businessLogicException)
+            if (ex is BusinessLogicException businessLogicException)
             {
                 var errorData = new ServiceExceptionContract(businessLogicException);
                 if (ex is EntityNotFoundException)

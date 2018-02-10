@@ -1,6 +1,5 @@
 ﻿using QuizService.BusinessLogic.Exceptions;
 using QuizService.Model;
-using QuizService.Model.Exceptions;
 using System;
 
 namespace QuizService.BusinessLogic

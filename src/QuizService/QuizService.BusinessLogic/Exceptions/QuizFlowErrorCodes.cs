@@ -1,4 +1,4 @@
-﻿namespace QuizService.Model.Exceptions
+﻿namespace QuizService.BusinessLogic.Exceptions
 {
     /// <summary>
     /// Quiz flow error code.

@@ -9,8 +9,14 @@ namespace QuizService.BusinessLogic.Exceptions
     [Serializable]
     public class BusinessLogicException : Exception, IBusinessLogicException
     {
+        /// <summary>
+        /// Gets code of error type.
+        /// </summary>
         public virtual string ErrorCode { get; }
 
+        /// <summary>
+        /// Gets additional exception properties.
+        /// </summary>
         public virtual object Extension { get; }
 
         public BusinessLogicException() { }

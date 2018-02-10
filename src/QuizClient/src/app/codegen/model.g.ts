@@ -17,11 +17,6 @@
 		QuizProceed = 1,
 		QuizFinish = 2
 	}
-	export const enum QuizFlowErrorCodes {
-		Unknown = 0,
-		QuestionAlreadyAnswered = 1,
-		QuizAlreadyCompleted = 2
-	}
 
 
 
@@ -45,10 +40,6 @@
 		errorCode: string;
 		extension: any;
 		message: string;
-	}
-	export interface IEntityNotFoundException {
-		entityId: any;
-		entityType: string;
 	}
 	export interface IServiceExceptionContract {
 		errorCode: string;
