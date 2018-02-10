@@ -2,7 +2,7 @@
 
 namespace QuizService.DataAccess.Common
 {
-    public class UnitOfWorkFactory : IUnitOfWorkFactory
+    internal class UnitOfWorkFactory : IUnitOfWorkFactory
     {
         private string ConnectionString;
 

@@ -7,12 +7,12 @@ using System.Linq.Expressions;
 
 namespace QuizService.DataAccess
 {
-    public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
+    internal class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
     {
-        internal ApplicationDatabaseContext context;
-        internal DbSet<TEntity> dbSet;
+        public ApplicationDatabaseContext context;
+        public DbSet<TEntity> dbSet;
 
-        internal GenericRepository(ApplicationDatabaseContext context)
+        public GenericRepository(ApplicationDatabaseContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

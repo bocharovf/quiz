@@ -1,16 +1,15 @@
 ﻿using QuizService.DataAccess.Repository;
 using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Repository;
-using QuizService.Model;
 using System;
 
 namespace QuizService.DataAccess.Common
 {
-    public class UnitOfWork : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
         private ApplicationDatabaseContext Context;
 
-        internal UnitOfWork(ApplicationDatabaseContext context)
+        public UnitOfWork(ApplicationDatabaseContext context)
         {
             this.Context = context;
         }

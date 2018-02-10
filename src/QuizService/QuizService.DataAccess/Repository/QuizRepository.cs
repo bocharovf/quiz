@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace QuizService.DataAccess.Repository
 {
-    public class QuizRepository : GenericRepository<Quiz, int>, IQuizRepository
+    internal class QuizRepository : GenericRepository<Quiz, int>, IQuizRepository
     {
-        internal QuizRepository(ApplicationDatabaseContext context) : base(context)
+        public QuizRepository(ApplicationDatabaseContext context) : base(context)
         {
         }
 
