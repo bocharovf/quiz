@@ -1,11 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizService", "QuizService\QuizService.csproj", "{E02A32CC-CC12-4443-AB62-229537EEE4D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService", "QuizService\QuizService.csproj", "{E02A32CC-CC12-4443-AB62-229537EEE4D5}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DD6DF444-6D69-4567-9361-501D6C11D542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Model", "QuizService.Model\QuizService.Model.csproj", "{E312D07C-D863-4C0E-B851-2D4B426C4DA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.DataAccess", "QuizService.DataAccess\QuizService.DataAccess.csproj", "{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Interfaces", "QuizService.Interfaces\QuizService.Interfaces.csproj", "{3E705BB6-3E0E-4D88-9542-B20D4BCCDBB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.BusinessLogic", "QuizService.BusinessLogic\QuizService.BusinessLogic.csproj", "{DB180779-886D-40AF-8FC6-3035B78B6EFD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.UnitTests", "QuizService.UnitTests\QuizService.UnitTests.csproj", "{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.BusinessLogic.UnitTests", "QuizService.BusinessLogic.UnitTests\QuizService.BusinessLogic.UnitTests.csproj", "{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizService.Common", "QuizService.Common\QuizService.Common.csproj", "{5061CC29-4C33-495D-BD10-638BCEE6C524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizService.CodeGen", "QuizService.CodeGen\QuizService.CodeGen.csproj", "{F98DC400-84A9-442E-8F29-74927966C2F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +31,38 @@ Global
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E02A32CC-CC12-4443-AB62-229537EEE4D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD6DF444-6D69-4567-9361-501D6C11D542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E312D07C-D863-4C0E-B851-2D4B426C4DA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83578E5E-BAAC-43B6-98E0-B58CE6BBC7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E705BB6-3E0E-4D88-9542-B20D4BCCDBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E705BB6-3E0E-4D88-9542-B20D4BCCDBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E705BB6-3E0E-4D88-9542-B20D4BCCDBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E705BB6-3E0E-4D88-9542-B20D4BCCDBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB180779-886D-40AF-8FC6-3035B78B6EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB180779-886D-40AF-8FC6-3035B78B6EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB180779-886D-40AF-8FC6-3035B78B6EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB180779-886D-40AF-8FC6-3035B78B6EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADF8F3A-9B76-4448-8EAF-D67B87A45F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB7C935-C7A6-434A-91F2-77B4C430F9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5061CC29-4C33-495D-BD10-638BCEE6C524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98DC400-84A9-442E-8F29-74927966C2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98DC400-84A9-442E-8F29-74927966C2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98DC400-84A9-442E-8F29-74927966C2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98DC400-84A9-442E-8F29-74927966C2F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

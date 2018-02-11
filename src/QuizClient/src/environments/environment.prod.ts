@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiPort: 80,
+  apiProtocol: 'http'
 };

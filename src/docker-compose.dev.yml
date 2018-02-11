@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  quizservice:
+    image: bocharovf/quizservice
+    build:
+      context: ./QuizService
+      dockerfile: Dockerfile
+  quizclient:
+    image: bocharovf/quizclient
+    build:
+      context: ./QuizClient
+      dockerfile: Dockerfile

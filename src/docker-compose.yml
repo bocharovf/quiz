@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    restart: always
+    environment: &environment
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+    volumes:
+      - data-volume:/var/lib/postgresql/data
+  quizservice:
+    image: bocharovf/quizservice
+    restart: always    
+    environment: *environment
+    depends_on:
+    - database
+  quizclient:
+    image: bocharovf/quizclient
+    restart: always
+    ports:
+      - "80:80"      
+    depends_on:
+    - quizservice
+
+volumes:
+  data-volume:

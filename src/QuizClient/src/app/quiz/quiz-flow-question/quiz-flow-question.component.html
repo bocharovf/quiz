@@ -1,0 +1,11 @@
+
+<div class="question-container">
+    <div #questionContainer></div>
+</div>
+
+<button mat-raised-button 
+    color="primary" 
+    [disabled]="!answerAvailable"
+    (click)="acceptAnswer()">
+    Accept
+</button>

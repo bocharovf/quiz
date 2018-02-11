@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  quizservice:
-    image: quizservice
-    build:
-      context: ./QuizService
-      dockerfile: Dockerfile

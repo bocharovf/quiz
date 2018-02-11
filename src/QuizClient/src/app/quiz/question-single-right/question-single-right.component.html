@@ -1,0 +1,11 @@
+<h2>{{ questionTemplate.text}}</h2>
+
+<p>Select single right answer from options:</p>
+<mat-radio-group class="answer-group" (change)="answerChanged($event)">
+    <mat-radio-button 
+      class="answer-item"  
+      *ngFor="let answer of questionTemplate.answers" 
+      value="{{answer.id}}">
+        {{ answer.text }}
+    </mat-radio-button>
+</mat-radio-group>

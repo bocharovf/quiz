@@ -1,0 +1,19 @@
+<div *ngIf="!quizTemplate">
+  <p>Please select quiz at the left ...</p>
+</div>
+
+<div *ngIf="quizTemplate">
+  <p>
+    <span>Title: <b>{{ quizTemplate.title }}</b></span>
+  </p>
+  <p>
+    <span>Description: <b>{{ quizTemplate.description }}</b></span>
+  </p>
+
+  <button mat-raised-button
+    color="primary"
+    (click)="onStartNewQuiz()">
+    Start quiz
+  </button>
+</div>
+

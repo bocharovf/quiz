@@ -1,0 +1,19 @@
+@import '../../shared/variables';
+
+.page-container {
+    position: absolute;
+    top: $toolbox-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.page-sidebar
+{
+    width: 250px;
+}
+
+.page-content
+{
+    padding: 0 0 0 15px;
+}

@@ -1,0 +1,9 @@
+<h2>Congratulations!</h2>
+<h3>Your have earned {{ score ? score.scoresAmount : "..." }} score</h3>
+
+<button mat-raised-button 
+    color="primary" 
+    routerLink="{{ homeLink }}" 
+    routerLinkActive="active">
+    New quiz ...
+</button>

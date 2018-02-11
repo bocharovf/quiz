@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using QuizService.DataAccess;
 
 namespace QuizService
 {
@@ -16,6 +11,9 @@ namespace QuizService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            string connectionString = Configuration.GetDatabaseConnectionString();
+            DatabaseInitializer.InitializeDatabase(connectionString);
         }
 
         public IConfiguration Configuration { get; }
@@ -23,7 +21,11 @@ namespace QuizService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddCors()
+                    .AddMvc()
+                    .AddJsonOptions(JsonSerializationConfiguration.Setup);
+
+            ServiceConfiguration.ConfigureServices(services, this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,8 +35,8 @@ namespace QuizService
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseMvc();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
+            app.UseMvc();            
         }
     }
 }
