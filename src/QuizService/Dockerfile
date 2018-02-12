@@ -1,6 +1,4 @@
 FROM microsoft/aspnetcore-build:2.0 AS build-env
-SHELL ["/bin/bash", "-c"]
-
 WORKDIR /app
 COPY . ./
 
