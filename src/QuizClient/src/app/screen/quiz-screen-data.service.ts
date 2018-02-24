@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment';
+import { BaseApiUrl } from '../shared/utils/DataUtils';
 import { QuizTemplate, Quiz } from '../codegen/model.g';
 
 /**
@@ -10,9 +10,8 @@ import { QuizTemplate, Quiz } from '../codegen/model.g';
  */
 @Injectable()
 export class QuizScreenDataService {
-  private readonly apiUrl = `${environment.apiProtocol}://${window.location.hostname}:${environment.apiPort}/api`;
-  private readonly quizTemplatesUrl = `${this.apiUrl}/quiz-templates`;
-  private readonly quizzesUrl = `${this.apiUrl}/quizzes`;
+  private readonly quizTemplatesUrl = `${BaseApiUrl}/quiz-templates`;
+  private readonly quizzesUrl = `${BaseApiUrl}/quizzes`;
 
   constructor(private http: HttpClient) { }
 

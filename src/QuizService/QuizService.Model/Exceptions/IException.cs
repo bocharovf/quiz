@@ -1,14 +1,13 @@
 ﻿namespace QuizService.Model.Exceptions
 {
     /// <summary>
-    /// Defines an exception related to application business logic.
+    /// Represents application exception.
     /// </summary>
     /// <remarks>
-    /// The interface replaces base enitity for Typescript code generation.
-    /// Using custom interface instead of Exception solves a lot of codegeneration problem 
-    /// and simplifies client model.
+    /// Abstracts exception inteface and removes dependency from standard Exception class
+    /// which does not work well with Typescipt code generation.
     /// </remarks>
-    public interface IBusinessLogicException
+    public interface IException
     {
         /// <summary>
         /// Gets code of error type.

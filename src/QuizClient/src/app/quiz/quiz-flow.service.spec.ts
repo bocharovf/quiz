@@ -60,7 +60,7 @@ describe('QuizFlowService', () => {
     });
 
     it('should pass errors to error handling service', () => {
-      const error = 'error';
+      const error = new Error('error');
       dataService.getQuiz = jasmine.createSpy('getQuiz')
                               .and.returnValue(Observable.throw(error));
 
@@ -110,7 +110,7 @@ describe('QuizFlowService', () => {
     });
 
     it('should pass errors to error handling service', () => {
-      const error = 'error';
+      const error = new Error('error');
       const quizTemplate = new Model.QuizTemplate();
       dataService.startNewQuiz = jasmine.createSpy('startNewQuiz')
                                    .and.returnValue(Observable.throw(error));
@@ -182,7 +182,7 @@ describe('QuizFlowService', () => {
     });
 
     it('should pass errors to error handling service', () => {
-      const error = 'error';
+      const error = new Error('error');
       const quiz = new Model.Quiz();
       quiz.id = 11;
       const finishCommand = new Model.QuizFlowCommandFinishContract();
@@ -252,7 +252,7 @@ describe('QuizFlowService', () => {
     });
 
     it('should pass errors to error handling service', () => {
-      const error = 'error';
+      const error = new Error('error');
       const answer = new Model.Answer();
       answer.templateId = 55;
       const quiz = new Model.Quiz();

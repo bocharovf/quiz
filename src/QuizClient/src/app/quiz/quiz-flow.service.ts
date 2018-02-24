@@ -9,11 +9,13 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/first';
+import * as StackTrace from 'stacktrace-js';
 
 import * as Model from '../codegen/model.g';
 import { QuizFlowDataService } from './quiz-flow-data.service';
 import { NavigationService } from '../shared/navigation.service';
 import { ErrorHandlerService } from '../shared/errors/error-handler.service';
+import { getStackTrace } from '../shared/utils/LoggingUtils';
 import ApplicationError from '../shared/errors/ApplicationError';
 import ErrorCodes from './ErrorCodes';
 
@@ -54,6 +56,7 @@ export class QuizFlowService {
    * @param quizId Quiz identifier.
    */
   activateQuiz(quizId: number) {
+    const stackTrace = getStackTrace(StackTrace.getSync());
     if (this.activeQuizId !== quizId) {
       this.dataService
           .getQuiz(quizId)
@@ -61,7 +64,7 @@ export class QuizFlowService {
             this.activeQuizId = quizId;
             this.activeQuiz.next(quiz);
           },
-          error => this.handleError(error)
+          error => this.handleError(error, stackTrace)
         );
     }
   }
@@ -71,6 +74,7 @@ export class QuizFlowService {
    * @param quizTemplate Quiz template to create quiz from.
    */
   startNewQuiz(quizTemplate: Model.QuizTemplate) {
+    const stackTrace = getStackTrace(StackTrace.getSync());
     this.dataService
         .startNewQuiz(quizTemplate.id)
         .subscribe(quiz => {
@@ -78,7 +82,7 @@ export class QuizFlowService {
             this.activeQuiz.next(quiz);
             this.navigation.goToQuiz(quiz.id);
           },
-          error => this.handleError(error)
+          error => this.handleError(error, stackTrace)
         );
   }
 
@@ -86,6 +90,7 @@ export class QuizFlowService {
    * Gets next question from active quiz.
    */
   getNextQuestion() {
+    const stackTrace = getStackTrace(StackTrace.getSync());
     this.ensureActiveQuiz().pipe(
       flatMap(() => this.activeQuiz$.first()),
       flatMap(
@@ -94,7 +99,7 @@ export class QuizFlowService {
       )
     ).subscribe(
       data => this.dispatchCommand(data.command, data.quiz),
-      error => this.handleError(error)
+      error => this.handleError(error, stackTrace)
     );
   }
 
@@ -104,6 +109,7 @@ export class QuizFlowService {
    * @param answer The question answer.
    */
   answerQuestion(questionId: number, answer: Model.Answer) {
+    const stackTrace = getStackTrace(StackTrace.getSync());
     this.ensureActiveQuiz().pipe(
       flatMap(() => this.activeQuiz$.first()),
       flatMap(quiz => this.dataService.answerQuestion(
@@ -113,7 +119,7 @@ export class QuizFlowService {
       )
     ).subscribe(
       () => this.getNextQuestion(),
-      error => this.handleError(error)
+      error => this.handleError(error, stackTrace)
     );
   }
 
@@ -137,9 +143,8 @@ export class QuizFlowService {
     return Observable.of(true);
   }
 
-  private handleError(error: any) {
-    const applicationError = new ApplicationError(error.message);
-    applicationError.internalException = error;
+  private handleError(error: any, stackTrace?: string) {
+    error.stackTrace = error.stackTrace || stackTrace;
     this.error.next(error);
   }
 }

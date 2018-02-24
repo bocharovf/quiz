@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment';
+import { BaseApiUrl } from '../shared/utils/DataUtils';
 import { QuizTemplate, Quiz, QuizFlowCommandContract } from '../codegen/model.g';
 
 /**
@@ -10,8 +10,7 @@ import { QuizTemplate, Quiz, QuizFlowCommandContract } from '../codegen/model.g'
  */
 @Injectable()
 export class QuizFlowDataService {
-  private readonly apiUrl = `${environment.apiProtocol}://${window.location.hostname}:${environment.apiPort}/api`;
-  private readonly baseUrl = `${this.apiUrl}/quizzes`;
+  private readonly baseUrl = `${BaseApiUrl}/quizzes`;
 
   constructor(private http: HttpClient) { }
 

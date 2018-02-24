@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using QuizService.BusinessLogic.QuizFlow;
 using QuizService.BusinessLogic.Scores;
+using QuizService.Common.Logging;
 using QuizService.DataAccess;
 using QuizService.Interfaces.Managers;
 
@@ -23,6 +24,7 @@ namespace QuizService
 
             DataAccessServiceConfiguration.ConfigureServices(services, databaseConnectionString);
 
+            services.AddSingleton<ILogFormatter, LogFormatter>();
             services.AddTransient<IQuizFlowManager, QuizFlowManager>();
             services.AddTransient<IScoreCalculationFactory, ScoreCalculationFactory>();
         }

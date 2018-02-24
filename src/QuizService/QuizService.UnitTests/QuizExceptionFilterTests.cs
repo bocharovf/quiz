@@ -29,7 +29,7 @@ namespace QuizService.UnitTests
             // Assert
             var result = Assert.IsType<NotFoundObjectResult>(exceptionContext.Result);
             Assert.Equal(404, result.StatusCode);
-            var contract = Assert.IsType<ServiceExceptionContract>(result.Value);
+            var contract = Assert.IsType<ExceptionContract>(result.Value);
             Assert.Equal("EntityNotFound", contract.ErrorCode);
         }
 
@@ -47,7 +47,7 @@ namespace QuizService.UnitTests
             // Assert
             var result = Assert.IsType<BadRequestObjectResult>(exceptionContext.Result);
             Assert.Equal(400, result.StatusCode);
-            var contract = Assert.IsType<ServiceExceptionContract>(result.Value);
+            var contract = Assert.IsType<ExceptionContract>(result.Value);
             Assert.Equal("CustomBusinessLogicException", contract.ErrorCode);
         }
 
@@ -65,7 +65,7 @@ namespace QuizService.UnitTests
             // Assert
             var result = Assert.IsType<ObjectResult>(exceptionContext.Result);
             Assert.Equal(500, result.StatusCode);
-            var contract = Assert.IsType<DefaultServiceExceptionContract>(result.Value);
+            var contract = Assert.IsType<ExceptionContract>(result.Value);
             Assert.Equal("InternalServerError", contract.ErrorCode);
         }
 
