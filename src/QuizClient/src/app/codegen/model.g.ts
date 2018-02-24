@@ -31,17 +31,20 @@
 		order: number;
 		text: string;
 	}
-	export class DefaultServiceExceptionContract {
+	export class ClientExceptionContract {
+		clientPlatform: string;
+		correlationId: string;
+		errorCode: string;
+		message: string;
+		stackTrace: string;
+	}
+	export class ExceptionContract {
+		correlationId: string;
 		errorCode: string;
 		extension: any;
 		message: string;
 	}
-	export interface IBusinessLogicException {
-		errorCode: string;
-		extension: any;
-		message: string;
-	}
-	export interface IServiceExceptionContract {
+	export interface IException {
 		errorCode: string;
 		extension: any;
 		message: string;
@@ -104,11 +107,6 @@
 		id: number;
 		quizId: number;
 		scoresAmount: number;
-	}
-	export class ServiceExceptionContract {
-		errorCode: string;
-		extension: any;
-		message: string;
 	}
 
 

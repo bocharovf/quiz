@@ -7,7 +7,7 @@ namespace QuizService.BusinessLogic.Exceptions
     /// Defines an exception related to application business logic.
     /// </summary>
     [Serializable]
-    public class BusinessLogicException : Exception, IBusinessLogicException
+    public class BusinessLogicException : Exception, IException
     {
         /// <summary>
         /// Gets code of error type.

@@ -1,5 +1,4 @@
-﻿using QuizService.Model;
-using System;
+﻿using System;
 
 namespace QuizService.BusinessLogic.Exceptions
 {

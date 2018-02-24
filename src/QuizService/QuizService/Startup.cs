@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QuizService.Configuration;
 using QuizService.DataAccess;
+using QuizService.Middleware;
 
 namespace QuizService
 {
@@ -35,8 +37,11 @@ namespace QuizService
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
-            app.UseMvc();            
+
+            app.ConfigureCors()
+               .UseCorrelationId()
+               .UseRequestLogging()
+               .UseMvc();
         }
     }
 }
