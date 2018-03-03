@@ -1,4 +1,5 @@
 # Functional requirements
+**Note**: this is initial feature list done on early planning stage. Keep it here just for historical reasons. It's frozen and read only. All feature planning will be done on github.
 
 ## Auth
 * Auth via Facebook, google+, VK etc...
@@ -22,11 +23,11 @@
 * ability to change previous answer
 * Save quiz progress and come back later
 
-# Score calculation		
+# Score calculation
 * Different score calculation strategies
 
 ## Different types of questions
-* choose single/many right answer(s) from options 
+* choose single/many right answer(s) from options
 * Several sub-questions in question
 * drag & arrange parts of answer
 * choose single wrong answer among right ones
