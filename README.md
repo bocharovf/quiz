@@ -19,6 +19,6 @@ Application consists of several components:
 * **QuizClient** - Angular 5 single page application to interact with user. See [QuizClient documentation](src/QuizClient/README.md) for details.
 * **Database** - PostgreSQL database to store application data.
 
-Details about CI/CD process could be found in [continuous integration and delivery](docs/Continuous%20integration%20and%20delivery.md) page.
+Details about CI/CD process could be found in [continuous integration and delivery](docs/continuous%20integration%20and%20delivery.md) page.
 
 See the [get started](docs/get%20started.md) guide to build, test and run application quickly.
