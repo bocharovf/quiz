@@ -2,7 +2,7 @@
 **QuizClient** is an Angular 5 single page application.
 
 ## Project folders structure
-* nginx - nginx web server configuration used to redirect API requests. Only for Docker deployment.
+* nginx - nginx web server configuration is used to redirect API requests. Only for Docker deployment.
 * src/environments - settings to switch between dev and prod modes.
 * src/app/codegen - generated Typescript. See [QuizService documentation](../QuizService/README.md#code%20generation) for details.
 * src/app/quiz - quiz flow logic and controls.

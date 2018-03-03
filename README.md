@@ -7,7 +7,7 @@ Fully functional demo application with Docker support written with ASP.NET Core 
 The main project goals are:
 * demonstrate my skills and knowledge
 * write clean code and do everything qualitatively
-* play with all that new and awesome stuff that I interested in
+* play with all that new and awesome stuff I am interested in
 
 ## Status
 Under active development. Try it yourself on [quiz.bocharovf.ru](http://quiz.bocharovf.ru)
