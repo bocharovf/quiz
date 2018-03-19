@@ -1,0 +1,23 @@
+<form #loginForm="ngForm" class="login-container">
+  <h2 class="mat-h2">Please provide your credentials</h2>
+
+  <mat-form-field class="login-field">
+    <input matInput name="login" placeholder="Login" type="email" required [(ngModel)]="model.login" />
+  </mat-form-field>
+
+  <mat-form-field class="login-field">
+    <input matInput name="password" placeholder="Password" type="password" required [(ngModel)]="model.password" />
+  </mat-form-field>
+
+  <mat-checkbox
+    name="remember"
+    [(ngModel)]="model.remember"
+    class="mat-form-field mat-form-field-wrapper login-field">Remember me</mat-checkbox>
+
+  <button mat-raised-button
+    color="primary"
+    [disabled]="!formValid"
+    (click)="login()">Login</button>
+
+  <quiz-error-presenter [errors]="errors"></quiz-error-presenter>
+</form>

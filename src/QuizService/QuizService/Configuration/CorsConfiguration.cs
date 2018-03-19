@@ -16,6 +16,7 @@ namespace QuizService.Configuration
                 options.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader()
+                       .AllowCredentials()
                        .WithExposedHeaders(CorrelationIdMiddleware.CORRELATION_ID_HEADER));
         }
     }

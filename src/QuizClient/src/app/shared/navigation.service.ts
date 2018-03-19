@@ -19,8 +19,14 @@ export class NavigationService {
   /** Quiz scores page route. */
   static readonly scoresRoute = 'quizzes/:id/scores';
 
-  /** Default route link. */
-  static readonly homeLink = '/' + NavigationService.templatesRoute;
+  /** Registration page route. */
+  static readonly registrationRoute = 'registration';
+
+  /** Login page route. */
+  static readonly loginRoute = 'login';
+
+  /** Default route. */
+  static readonly homeRoute = NavigationService.templatesRoute;
 
   /**
    * Navigates to quiz flow page.
@@ -38,5 +44,26 @@ export class NavigationService {
   goToQuizScores(quizId: number): void {
     const route = NavigationService.scoresRoute.replace(':id', String(quizId));
     this.router.navigate([route]);
+  }
+
+  /**
+   * Navigates to registration page.
+   */
+  goToRegistration(): void {
+    this.router.navigate([NavigationService.registrationRoute]);
+  }
+
+  /**
+   * Navigates to login page.
+   */
+  goToLogin(): void {
+    this.router.navigate([NavigationService.loginRoute]);
+  }
+
+  /**
+   * Navigates to home page.
+   */
+  goToHome(): void {
+    this.router.navigate([NavigationService.homeRoute]);
   }
 }

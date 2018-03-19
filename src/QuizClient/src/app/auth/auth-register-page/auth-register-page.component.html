@@ -1,0 +1,34 @@
+<form #registerForm="ngForm" class="registration-container">
+  <h2 class="mat-h2">Please provide your registration details</h2>
+
+  <mat-form-field class="registration-field">
+    <input matInput required
+      name="displayName"
+      placeholder="Name"
+      type="text"
+      [(ngModel)]="model.displayName" />
+  </mat-form-field>
+
+  <mat-form-field class="registration-field">
+    <input matInput required email
+      name="email"
+      placeholder="Email"
+      type="email"
+      [(ngModel)]="model.email" />
+  </mat-form-field>
+
+  <mat-form-field class="registration-field">
+    <input matInput required minlength="4"
+      name="password"
+      placeholder="Password"
+      type="password"
+      [(ngModel)]="model.password" />
+  </mat-form-field>
+
+  <button mat-raised-button
+    [disabled]="!formValid"
+    color="primary"
+    (click)="register()">Register</button>
+
+  <quiz-error-presenter [errors]="errors"></quiz-error-presenter>
+</form>

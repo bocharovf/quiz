@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using QuizService.DataAccess.Auth;
 using QuizService.Model;
 
 namespace QuizService.DataAccess
 {
-    internal class ApplicationDatabaseContext : DbContext
+    internal class ApplicationDatabaseContext : IdentityDbContext<AspnetUser, AspnetRole, int>
     {
-        public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options)
+        public ApplicationDatabaseContext(DbContextOptions options)
             : base(options) { }
 
         public DbSet<QuizTemplate> QuizTemplates { get; set; }
@@ -18,6 +20,8 @@ namespace QuizService.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<QuizQuestionTemplate>()
                 .HasKey(qqt => new
                 {

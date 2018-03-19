@@ -1,0 +1,9 @@
+
+<div class="error-container" *ngIf="errors">
+    <mat-list>
+        <mat-list-item *ngFor="let error of errors" class="error-item">
+          <mat-icon mat-list-icon>error</mat-icon>
+          {{error.message}}
+        </mat-list-item>
+    </mat-list>
+</div>

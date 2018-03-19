@@ -4,22 +4,27 @@ services:
   database:
     image: postgres
     restart: always
-    environment: &environment
-      POSTGRES_USER: usr
-      POSTGRES_PASSWORD: pwd
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     volumes:
       - data-volume:/var/lib/postgresql/data
   quizservice:
     image: bocharovf/quizservice
-    restart: always    
-    environment: *environment
+    restart: always
+    environment:
+      - APPINSIGHTS_INSTRUMENTATIONKEY
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - QUIZ_ADMIN_EMAIL
+      - QUIZ_ADMIN_PASSWORD
     depends_on:
     - database
   quizclient:
     image: bocharovf/quizclient
     restart: always
     ports:
-      - "80:80"      
+      - "80:80"
     depends_on:
     - quizservice
 

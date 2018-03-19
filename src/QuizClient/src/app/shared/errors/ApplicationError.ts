@@ -7,6 +7,9 @@ export default class ApplicationError extends ClientExceptionContract {
     /** Default error code for unexpected exceptions. */
     static readonly UnexpectedErrorCode = 'UNEXPECTED';
 
+    /** Source error object */
+    source: any;
+
     /**
      * Creates a new instance of {@link ApplicationError}.
      * @param message Error message.
