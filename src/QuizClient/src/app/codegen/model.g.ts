@@ -62,6 +62,9 @@
 		extension: any;
 		message: string;
 	}
+	export interface IUserOwnedResource {
+		createdUserId: number;
+	}
 	export class LocalizableErrorContract {
 		code: string;
 		message: string;
@@ -92,6 +95,7 @@
 		text: string;
 	}
 	export class Quiz {
+		createdUserId: number;
 		currentQuestion: Question;
 		dateEnd: Date;
 		dateStart: Date;
@@ -121,6 +125,7 @@
 		quizTemplateId: number;
 	}
 	export class QuizTemplate {
+		createdUserId: number;
 		description: string;
 		id: number;
 		title: string;
@@ -139,6 +144,7 @@
 		name: string;
 	}
 	export class Score {
+		createdUserId: number;
 		id: number;
 		quizId: number;
 		scoresAmount: number;
@@ -146,6 +152,7 @@
 	export class User {
 		email: string;
 		id: number;
+		isAdmin: boolean;
 		name: string;
 		roles: string[];
 	}

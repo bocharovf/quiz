@@ -7,11 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using QuizService.Auth;
 using QuizService.BusinessLogic.QuizFlow;
 using QuizService.BusinessLogic.Scores;
+using QuizService.BusinessLogic.Services;
 using QuizService.Common.Logging;
 using QuizService.DataAccess;
 using QuizService.DataAccess.Auth;
 using QuizService.DataAccess.Configuration;
 using QuizService.Interfaces.Managers;
+using QuizService.Interfaces.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -29,13 +31,19 @@ namespace QuizService
         /// <param name="configuration">Application configuration.</param>
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             string databaseConnectionString = configuration.GetDatabaseConnectionString();
             DataAccessServiceConfiguration.ConfigureServices(services, databaseConnectionString);
-
+            
             services.AddSingleton<ILogFormatter, LogFormatter>();
+
+            services.AddScoped<IUserAccessorService, UserAccessorService>();
+            services.AddScoped<IAuthenticationWrapperService, AuthenticationWrapperService>();
+
             services.AddTransient<IQuizFlowManager, QuizFlowManager>();
             services.AddTransient<IScoreCalculationFactory, ScoreCalculationFactory>();
-            services.AddTransient<IAuthenticationWrapperService, AuthenticationWrapperService>();
+            services.AddTransient<IAccessControlService, AccessControlService>();
         }
 
         /// <summary>

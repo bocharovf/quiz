@@ -3,6 +3,7 @@ using QuizService.BusinessLogic;
 using QuizService.Filters;
 using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Managers;
+using QuizService.Interfaces.Services;
 using QuizService.Model;
 using QuizService.Model.DataContract;
 
@@ -13,22 +14,28 @@ namespace QuizService.Controllers
     [Route("api/quizzes")]
     public class QuizFlowController : Controller
     {
-        private IUnitOfWork Uow;
-        private IQuizFlowManager QuizFlowManager;
+        private readonly IUnitOfWork Uow;
+        private readonly IQuizFlowManager QuizFlowManager;
+        private readonly IUserAccessorService UserAccessor;
 
-        public QuizFlowController(IQuizFlowManager quizFlowManager, IUnitOfWork uow)
+        public QuizFlowController(
+            IQuizFlowManager quizFlowManager, 
+            IUnitOfWork uow, 
+            IUserAccessorService userAccessor
+            )
         {
             this.QuizFlowManager = quizFlowManager;
             this.Uow = uow;
+            this.UserAccessor = userAccessor;
         }
 
         // GET api/quizzes/{quizId}
         [HttpGet("{quizId}")]
         public IActionResult GetQuiz(int quizId)
         {
-            var quiz = this.Uow.QuizRepository.GetByID(quizId);
+            Quiz quiz = this.Uow.QuizRepository.GetByID(quizId);
             ThrowIf.NotFound(quiz, quizId);
-
+             
             return Ok(quiz);
         }
 
@@ -39,7 +46,7 @@ namespace QuizService.Controllers
             QuizTemplate quizTemplate = this.Uow.QuizTemplateRepository.GetByID(templateId);
             ThrowIf.NotFound(quizTemplate, templateId);
 
-            Quiz quiz = this.QuizFlowManager.StartNewQuiz(quizTemplate);
+            Quiz quiz = this.QuizFlowManager.StartNewQuiz(quizTemplate, this.UserAccessor.DomainUser);
             return Ok(quiz);
         }
 

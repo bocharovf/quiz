@@ -17,14 +17,10 @@ namespace QuizService.DataAccess
         /// <param name="connectionString">The database connection string.</param>
         public static void ConfigureServices(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<ApplicationDatabaseContext>(options => 
+            services.AddDbContext<ApplicationDatabaseContext>(options =>
                 options.ConfigureApplcationContextOptions(connectionString));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>(
-                (provider) => new UnitOfWorkFactory(connectionString));
         }
-
     }
 }

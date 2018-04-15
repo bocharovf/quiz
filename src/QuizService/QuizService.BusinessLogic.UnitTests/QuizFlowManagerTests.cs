@@ -39,11 +39,17 @@ namespace QuizService.BusinessLogic.UnitTests
                 Id = 1
             };
 
+            var user = new User()
+            {
+                Id = 3
+            };
+
             // Act
-            var quiz = manager.StartNewQuiz(quizTemplate);
+            var quiz = manager.StartNewQuiz(quizTemplate, user);
 
             // Assert
             Assert.Equal(1, quiz.TemplateId);
+            Assert.Equal(3, quiz.CreatedUserId);
             mockQuizRepo.Verify(repo => repo.Insert(It.IsAny<Quiz>()), Times.Once);
             mockUow.Verify(uow => uow.Save(), Times.Once);
         }

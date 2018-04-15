@@ -18,6 +18,7 @@ import { ErrorHandlerService } from '../shared/errors/error-handler.service';
 import { getStackTrace } from '../shared/utils/LoggingUtils';
 import ApplicationError from '../shared/errors/ApplicationError';
 import ErrorCodes from './ErrorCodes';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Provides methods to manage quiz flow.
@@ -144,6 +145,14 @@ export class QuizFlowService {
   }
 
   private handleError(error: any, stackTrace?: string) {
+    const applicationError = error as ApplicationError;
+    const response = error.source as HttpErrorResponse;
+
+    if (response && response.status === 404) {
+      this.navigation.goToNotFound();
+      return;
+    }
+
     error.stackTrace = error.stackTrace || stackTrace;
     this.error.next(error);
   }

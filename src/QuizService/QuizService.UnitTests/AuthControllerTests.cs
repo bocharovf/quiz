@@ -4,14 +4,14 @@ using Moq;
 using QuizService.Auth;
 using QuizService.Controllers;
 using QuizService.DataAccess.Auth;
+using QuizService.Interfaces.Services;
+using QuizService.Model;
 using QuizService.Model.DataContract;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using System.Linq;
-using System;
-using System.Security.Claims;
-using QuizService.Model;
-using System.Collections.Generic;
 
 namespace QuizService.UnitTests
 {
@@ -38,7 +38,9 @@ namespace QuizService.UnitTests
             mockAuthService.Setup(manager => manager.SignInAsync(It.IsAny<AspnetUser>(), It.IsAny<bool>()))
                            .Returns(value: Task.FromResult(IdentityResult.Success));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Register(ValidRegistrationContract);
@@ -63,7 +65,9 @@ namespace QuizService.UnitTests
             mockAuthService.Setup(manager => manager.SignInAsync(It.IsAny<AspnetUser>(), It.IsAny<bool>()))
                            .Returns(value: Task.FromResult(IdentityResult.Success));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Register(ValidRegistrationContract);
@@ -97,7 +101,9 @@ namespace QuizService.UnitTests
             mockAuthService.Setup(manager => manager.CreateAsync(It.IsAny<AspnetUser>(), It.IsAny<string>()))
                            .Returns(value: Task.FromResult(IdentityResult.Failed(creationErrors)));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Register(ValidRegistrationContract);
@@ -130,7 +136,9 @@ namespace QuizService.UnitTests
             mockAuthService.Setup(manager => manager.AddToRoleAsync(It.IsAny<AspnetUser>(), It.IsAny<string>()))
                            .Returns(value: Task.FromResult(IdentityResult.Failed(addToRole)));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var exception = await Assert.ThrowsAsync<AuthenticationException>(
@@ -146,7 +154,9 @@ namespace QuizService.UnitTests
         {
             // Arrange
             var mockAuthService = new Mock<IAuthenticationWrapperService>();
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentNullException>("registrationContract", 
@@ -174,7 +184,9 @@ namespace QuizService.UnitTests
                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(value: Task.FromResult(signInResult));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Login(ValidLoginContract);
@@ -198,7 +210,9 @@ namespace QuizService.UnitTests
                 It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(value: Task.FromResult(signInResult));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Login(ValidLoginContract);
@@ -216,7 +230,9 @@ namespace QuizService.UnitTests
         {
             // Arrange
             var mockAuthService = new Mock<IAuthenticationWrapperService>();
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentNullException>("loginContract",
@@ -237,7 +253,9 @@ namespace QuizService.UnitTests
             mockAuthService.Setup(manager => manager.SignOutAsync())
                 .Returns(value: Task.CompletedTask);
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
             var response = await controller.Logout();
@@ -251,7 +269,7 @@ namespace QuizService.UnitTests
         #region Status
 
         [Fact]
-        public async void Status_WhenUserAuthenticated_ReturnsOkWithAuthenticatedAuthenticationStatus()
+        public void Status_WhenUserAuthenticated_ReturnsOkWithAuthenticatedAuthenticationStatus()
         {
             // Arrange
             var user = new User()
@@ -263,15 +281,15 @@ namespace QuizService.UnitTests
             };
 
             var mockAuthService = new Mock<IAuthenticationWrapperService>();
-            mockAuthService.Setup(manager => manager.IsAuthenticated(It.IsAny<ClaimsPrincipal>()))
-                .Returns(value: true);
-            mockAuthService.Setup(manager => manager.GetDomainUserAsync(It.IsAny<ClaimsPrincipal>()))
-                .Returns(value: Task.FromResult(user));
 
-            var controller = new AuthController(mockAuthService.Object);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+            mockUserAccessor.SetupGet(ua => ua.IsAuthenticated).Returns(value: true);
+            mockUserAccessor.SetupGet(ua => ua.DomainUser).Returns(value: user);
+
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
-            var response = await controller.Status();
+            var response = controller.Status();
 
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(response);
@@ -283,17 +301,17 @@ namespace QuizService.UnitTests
         }
 
         [Fact]
-        public async void Status_WhenUserNotAuthenticated_ReturnsOkWithNotAuthenticatedAuthenticationStatus()
+        public void Status_WhenUserNotAuthenticated_ReturnsOkWithNotAuthenticatedAuthenticationStatus()
         {
             // Arrange
             var mockAuthService = new Mock<IAuthenticationWrapperService>();
-            mockAuthService.Setup(manager => manager.IsAuthenticated(It.IsAny<ClaimsPrincipal>()))
-                .Returns(value: false);
+            var mockUserAccessor = new Mock<IUserAccessorService>();
+            mockUserAccessor.SetupGet(ua => ua.IsAuthenticated).Returns(value: false);
 
-            var controller = new AuthController(mockAuthService.Object);
+            var controller = new AuthController(mockAuthService.Object, mockUserAccessor.Object);
 
             // Act
-            var response = await controller.Status();
+            var response = controller.Status();
 
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(response);

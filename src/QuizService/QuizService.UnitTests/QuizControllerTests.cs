@@ -5,6 +5,7 @@ using QuizService.Controllers;
 using QuizService.Interfaces.Common;
 using QuizService.Interfaces.Managers;
 using QuizService.Interfaces.Repository;
+using QuizService.Interfaces.Services;
 using QuizService.Model;
 using QuizService.Model.DataContract;
 using Xunit;
@@ -36,17 +37,23 @@ namespace QuizService.UnitTests
             {
                 Id = 1
             };
+
             var mockManager = new Mock<IQuizFlowManager>();
-            mockManager.Setup(manager => manager.StartNewQuiz(It.IsAny<QuizTemplate>()))
+            mockManager.Setup(manager => manager.StartNewQuiz(It.IsAny<QuizTemplate>(), It.IsAny<User>()))
                        .Returns(quizStub);
 
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var user = new User();
+            var userAccessor = this.GetConfiguredUserAccessorServiceMock(user);
+
+            var accessMock = new Mock<IAccessControlService>();
+            
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act
             var response = controller.Start(1);
 
             // Assert
-            mockManager.Verify(mock => mock.StartNewQuiz(quizTemplateStub), Times.Once);
+            mockManager.Verify(mock => mock.StartNewQuiz(quizTemplateStub, user), Times.Once);
             var objectResult = Assert.IsType<OkObjectResult>(response);
             var quiz = Assert.IsType<Quiz>(objectResult.Value);
             Assert.Equal(1, quiz.Id);
@@ -65,8 +72,9 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizTemplateRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
+            var userAccessor = new Mock<IUserAccessorService>();
 
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.Start(1));
@@ -79,7 +87,7 @@ namespace QuizService.UnitTests
         #region GetNextQuestion
 
         [Fact]
-        public void GetNextQuestion_WhenCommandReturned_ReturnsOkResultWithCommand()
+        public void GetNextQuestion_WhenQuizFlowCommandReturned_ReturnsOkResultWithCommand()
         {
             // Arrange
             var commandStub = new QuizFlowCommandFinishContract();
@@ -96,7 +104,10 @@ namespace QuizService.UnitTests
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.GetNextQuestion(It.IsAny<Quiz>()))
                        .Returns(commandStub);
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+
+            var userAccessor = GetConfiguredUserAccessorServiceMock(new User());
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act
             var response = controller.GetNextQuestion(1);
@@ -121,7 +132,9 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
 
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var userAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.GetNextQuestion(1));
@@ -154,7 +167,10 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.AnswerQuestion(It.IsAny<Question>(), It.IsAny<int>()));
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+
+            var userAccessor = this.GetConfiguredUserAccessorServiceMock(new User());
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act
             var response = controller.AnswerQuestion(1, 2, 3);
@@ -177,7 +193,9 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var userAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.AnswerQuestion(1, 2, 3));
@@ -199,7 +217,9 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var userAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.AnswerQuestion(1, 2, 3));
@@ -226,7 +246,10 @@ namespace QuizService.UnitTests
 
             var mockManager = new Mock<IQuizFlowManager>();
             mockManager.Setup(manager => manager.CompleteQuiz(It.IsAny<Quiz>()));
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+
+            var userAccessor = this.GetConfiguredUserAccessorServiceMock(new User());
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act
             var response = controller.CompleteQuiz(1);
@@ -249,7 +272,9 @@ namespace QuizService.UnitTests
                    .Returns(mockQuizRepo.Object);
 
             var mockManager = new Mock<IQuizFlowManager>();
-            var controller = new QuizFlowController(mockManager.Object, mockUow.Object);
+            var userAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
 
             // Act & Assert
             var ex = Assert.Throws<EntityNotFoundException>(() => controller.CompleteQuiz(1));
@@ -257,6 +282,76 @@ namespace QuizService.UnitTests
             Assert.Equal(1, ex.EntityId);
         }
 
+        #endregion
+
+        #region GetQuiz
+
+        [Fact]
+        public void GetQuiz_WhenQuizFound_ReturnsOkResultWithQuiz()
+        {
+            // Arrange
+            var quiz = new Quiz()
+            {
+                Id = 1
+            };
+
+            var mockQuizRepo = new Mock<IQuizRepository>();
+            mockQuizRepo.Setup(repo => repo.GetByID(It.IsAny<int>()))
+                        .Returns(value: quiz);
+
+            var mockUow = new Mock<IUnitOfWork>();
+            mockUow.Setup(uow => uow.QuizRepository)
+                   .Returns(mockQuizRepo.Object);
+
+            var mockManager = new Mock<IQuizFlowManager>();
+
+            var userAccessor = GetConfiguredUserAccessorServiceMock(new User());
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
+
+            // Act
+            var response = controller.GetQuiz(1);
+
+            // Assert
+            var objectResult = Assert.IsType<OkObjectResult>(response);
+            var returnedQuiz = Assert.IsType<Quiz>(objectResult.Value);
+            Assert.Equal(1, returnedQuiz.Id);
+        }
+
+        [Fact]
+        public void GetQuiz_WhenQuizNotFound_ThrowsEntityNotFound()
+        {
+            // Arrange
+            var mockQuizRepo = new Mock<IQuizRepository>();
+            mockQuizRepo.Setup(repo => repo.GetByID(It.IsAny<int>()))
+                        .Returns(value: null);
+
+            var mockUow = new Mock<IUnitOfWork>();
+            mockUow.Setup(uow => uow.QuizRepository)
+                   .Returns(mockQuizRepo.Object);
+
+            var mockManager = new Mock<IQuizFlowManager>();
+            var userAccessor = new Mock<IUserAccessorService>();
+
+            var controller = new QuizFlowController(mockManager.Object, mockUow.Object, userAccessor.Object);
+
+            // Act & Assert
+            var ex = Assert.Throws<EntityNotFoundException>(() => controller.GetQuiz(1));
+            Assert.Equal("Quiz", ex.EntityType);
+            Assert.Equal(1, ex.EntityId);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private Mock<IUserAccessorService> GetConfiguredUserAccessorServiceMock(User user)
+        {
+            var userAccessorMock = new Mock<IUserAccessorService>();
+            userAccessorMock.SetupGet(service => service.DomainUser).Returns(user);
+            return userAccessorMock;
+        }
+        
         #endregion
     }
 }

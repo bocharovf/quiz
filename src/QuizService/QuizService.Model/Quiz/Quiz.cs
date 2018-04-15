@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuizService.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace QuizService.Model
     /// <summary>
     /// Represents quiz.
     /// </summary>
-    public class Quiz
+    public class Quiz : IUserOwnedResource
     {
         public Quiz()
         {
@@ -35,6 +36,11 @@ namespace QuizService.Model
         /// Gets or sets collection of quiz questions.
         /// </summary>
         public ICollection<Question> Questions { get; set; }
+
+        /// <summary>
+        /// Gets or sets identifier of user who created the quiz.
+        /// </summary>
+        public int CreatedUserId { get; set; }
 
         /// <summary>
         /// Gets the value which determine whether quiz completed.

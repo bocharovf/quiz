@@ -5,6 +5,7 @@ using QuizService.Auth;
 using QuizService.BusinessLogic;
 using QuizService.DataAccess.Auth;
 using QuizService.Filters;
+using QuizService.Interfaces.Services;
 using QuizService.Model;
 using QuizService.Model.DataContract;
 using System.Threading.Tasks;
@@ -18,10 +19,12 @@ namespace QuizService.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthenticationWrapperService AuthService;
+        private readonly IUserAccessorService UserAccessor;
 
-        public AuthController(IAuthenticationWrapperService authService)
+        public AuthController(IAuthenticationWrapperService authService, IUserAccessorService userAccessor)
         {
             this.AuthService = authService;
+            this.UserAccessor = userAccessor;
         }
 
         // POST /auth/register
@@ -93,24 +96,20 @@ namespace QuizService.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("status")]
-        public async Task<IActionResult> Status()
+        public IActionResult Status()
         {
             var contract = new AuthenticationStatusContract()
             {
                 IsSignedIn = false
             };
 
-            bool isAuthentificated = this.AuthService.IsAuthenticated(this.User);
-            if (isAuthentificated)
+            if (this.UserAccessor.IsAuthenticated)
             {
-                User user = await this.AuthService.GetDomainUserAsync(this.User);
                 contract.IsSignedIn = true;
-                contract.User = user;
+                contract.User = this.UserAccessor.DomainUser;
             }
 
             return Ok(contract);
         }
-
-        
     }
 }

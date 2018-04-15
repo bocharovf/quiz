@@ -1,11 +1,18 @@
-﻿namespace QuizService.Model
+﻿using QuizService.Model.Interfaces;
+
+namespace QuizService.Model
 {
     /// <summary>
     /// Represents quiz scores.
     /// </summary>
-    public class Score
+    public class Score : IUserOwnedResource
     {
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets identifier of user who earns the score.
+        /// </summary>
+        public int CreatedUserId { get; set; }
 
         /// <summary>
         /// Gets or sets quiz identifier for which scores are calculated.

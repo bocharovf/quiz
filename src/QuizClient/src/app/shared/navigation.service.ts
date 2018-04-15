@@ -25,6 +25,9 @@ export class NavigationService {
   /** Login page route. */
   static readonly loginRoute = 'login';
 
+  /** Error 404 page route. */
+  static readonly error404Route = 'error/404';
+
   /** Default route. */
   static readonly homeRoute = NavigationService.templatesRoute;
 
@@ -65,5 +68,12 @@ export class NavigationService {
    */
   goToHome(): void {
     this.router.navigate([NavigationService.homeRoute]);
+  }
+
+  /**
+   * Navigates to not found page.
+   */
+  goToNotFound() {
+    this.router.navigate([NavigationService.error404Route]);
   }
 }
