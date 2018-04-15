@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using QuizService.DataAccess.Common;
+using QuizService.DataAccess.Configuration;
 using QuizService.Interfaces.Common;
 
 namespace QuizService.DataAccess
@@ -16,13 +17,10 @@ namespace QuizService.DataAccess
         /// <param name="connectionString">The database connection string.</param>
         public static void ConfigureServices(IServiceCollection services, string connectionString)
         {
-            services.AddSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>(
-                (provider) => new UnitOfWorkFactory(connectionString));
+            services.AddDbContext<ApplicationDatabaseContext>(options =>
+                options.ConfigureApplcationContextOptions(connectionString));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>((provider) => {
-                var context = ApplicationDatabaseContextFactory.CreateContext(connectionString);
-                return new UnitOfWork(context);
-            });
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

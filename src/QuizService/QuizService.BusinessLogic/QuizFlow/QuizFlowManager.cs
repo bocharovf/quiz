@@ -26,15 +26,18 @@ namespace QuizService.BusinessLogic.QuizFlow
         /// Starts new quiz from specified quiz template.
         /// </summary>
         /// <param name="quizTemplate">The quiz template for new quiz.</param>
+        /// <param name="user">The user who performs the operation.</param>
         /// <returns>New quiz.</returns>
-        public Quiz StartNewQuiz(QuizTemplate quizTemplate)
+        public Quiz StartNewQuiz(QuizTemplate quizTemplate, User user)
         {
             ThrowIf.Null(quizTemplate, nameof(quizTemplate));
+            ThrowIf.Null(user, nameof(user));
 
             var quiz = new Quiz
             {
                 TemplateId = quizTemplate.Id,
-                DateStart = DateTime.Now
+                DateStart = DateTime.Now,
+                CreatedUserId = user.Id
             };
 
             this.Uow.QuizRepository.Insert(quiz);
@@ -143,7 +146,9 @@ namespace QuizService.BusinessLogic.QuizFlow
             ThrowIf.Completed(quiz);
 
             IScoreCalculationStrategy scoreCalculation = this.ScoreCalculationFactory.CreateStrategy(quiz);
-            var score = scoreCalculation.CalculateScore(quiz);
+            Score score = scoreCalculation.CalculateScore(quiz);
+            score.CreatedUserId = quiz.CreatedUserId;
+
             this.Uow.ScoreRepository.Insert(score);
 
             quiz.DateEnd = DateTime.Now;

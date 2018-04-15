@@ -12,8 +12,9 @@ namespace QuizService.Interfaces.Managers
         /// Starts new quiz from specified quiz template.
         /// </summary>
         /// <param name="quizTemplate">The quiz template for new quiz.</param>
+        /// <param name="user">The user who performs the operation.</param>
         /// <returns>New quiz.</returns>
-        Quiz StartNewQuiz(QuizTemplate quizTemplate);
+        Quiz StartNewQuiz(QuizTemplate quizTemplate, User user);
 
         /// <summary>
         /// Gets next question of the specified quiz.

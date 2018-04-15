@@ -24,6 +24,7 @@ export class QuizFlowPageComponent implements OnInit, OnDestroy {
   /** Error message to display. */
   errorMessage: string;
 
+  /** Link to home location. */
   homeLink: string;
 
   private quizId: number;
@@ -36,7 +37,7 @@ export class QuizFlowPageComponent implements OnInit, OnDestroy {
       private route: ActivatedRoute,
       private navigation: NavigationService) {
     this.quizId = +this.route.snapshot.params['id'];
-    this.homeLink = NavigationService.homeLink;
+    this.homeLink = '/' + NavigationService.homeRoute;
   }
 
   ngOnInit() {

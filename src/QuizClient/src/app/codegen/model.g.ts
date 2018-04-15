@@ -17,6 +17,13 @@
 		QuizProceed = 1,
 		QuizFinish = 2
 	}
+	export const enum SignInErrorCode {
+		Unknown = 0,
+		IsLockedOut = 1,
+		IsNotAllowed = 2,
+		RequiresTwoFactor = 3,
+		InvalidCredentials = 4
+	}
 
 
 
@@ -30,6 +37,12 @@
 		isCorrect: boolean;
 		order: number;
 		text: string;
+	}
+	export class ApplicationRole {
+	}
+	export class AuthenticationStatusContract {
+		isSignedIn: boolean;
+		user: User;
 	}
 	export class ClientExceptionContract {
 		clientPlatform: string;
@@ -49,6 +62,22 @@
 		extension: any;
 		message: string;
 	}
+	export interface IUserOwnedResource {
+		createdUserId: number;
+	}
+	export class LocalizableErrorContract {
+		code: string;
+		message: string;
+	}
+	export class LoginContract {
+		login: string;
+		password: string;
+		remember: boolean;
+	}
+	export class OperationResultContract {
+		errors: LocalizableErrorContract[];
+		isSuccessful: boolean;
+	}
 	export class Question {
 		answers: Answer[];
 		dateEnd: Date;
@@ -66,6 +95,7 @@
 		text: string;
 	}
 	export class Quiz {
+		createdUserId: number;
 		currentQuestion: Question;
 		dateEnd: Date;
 		dateStart: Date;
@@ -95,6 +125,7 @@
 		quizTemplateId: number;
 	}
 	export class QuizTemplate {
+		createdUserId: number;
 		description: string;
 		id: number;
 		title: string;
@@ -103,10 +134,27 @@
 		questionsCount: number;
 		quizTemplate: QuizTemplate;
 	}
+	export class RegistrationContract {
+		displayName: string;
+		email: string;
+		password: string;
+	}
+	export class Role {
+		id: number;
+		name: string;
+	}
 	export class Score {
+		createdUserId: number;
 		id: number;
 		quizId: number;
 		scoresAmount: number;
+	}
+	export class User {
+		email: string;
+		id: number;
+		isAdmin: boolean;
+		name: string;
+		roles: string[];
 	}
 
 

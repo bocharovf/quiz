@@ -1,11 +1,20 @@
 version: '3'
 
 services:
+  database:
+    environment:
+      - POSTGRES_USER=usr
+      - POSTGRES_PASSWORD=pwd
   quizservice:
     image: bocharovf/quizservice
     build:
       context: ./QuizService
       dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=usr
+      - POSTGRES_PASSWORD=pwd
+      - QUIZ_ADMIN_EMAIL=admin@bocharovf.ru
+      - QUIZ_ADMIN_PASSWORD=password 
   quizclient:
     image: bocharovf/quizclient
     build:

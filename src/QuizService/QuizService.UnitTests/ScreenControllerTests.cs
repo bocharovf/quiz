@@ -14,7 +14,8 @@ namespace QuizService.UnitTests
 {
     public class ScreenControllerTests
     {
-
+        #region GetQuizTemplates
+        
         [Fact]
         public void GetQuizTemplates_WhenMultipleTemplates_ReturnsOkResultWithTemplatesArray()
         {
@@ -31,7 +32,7 @@ namespace QuizService.UnitTests
             var mockUow = new Mock<IUnitOfWork>();
             mockUow.Setup(uow => uow.QuizTemplateRepository)
                    .Returns(mockQuizTemplateRepo.Object);
-            
+
             var controller = new ScreenController(mockUow.Object);
 
             // Act
@@ -43,6 +44,10 @@ namespace QuizService.UnitTests
             Assert.NotNull(quizTemplates);
             Assert.Equal(2, quizTemplates.Count());
         }
+
+        #endregion
+
+        #region GetQuizTemplate
 
         [Fact]
         public void GetQuizTemplate_WhenTemplateFound_ReturnsOkResultWithTemplatesDetails()
@@ -96,36 +101,12 @@ namespace QuizService.UnitTests
             Assert.Equal(1, ex.EntityId);
         }
 
-        [Fact]
-        public void GetScores_WhenMultipleScores_ReturnsOkResultWithScoresArray()
-        {
-            // Arrange
-            var scoresStub = new[] {
-                new Score(),
-                new Score()
-            };
+        #endregion
 
-            var mockScoreRepo = new Mock<IScoreRepository>();
-            mockScoreRepo.Setup(repo => repo.Get(null, null))
-                         .Returns(value: scoresStub);
-
-            var mockUow = new Mock<IUnitOfWork>();
-            mockUow.Setup(uow => uow.ScoreRepository)
-                   .Returns(mockScoreRepo.Object);
-
-            var controller = new ScreenController(mockUow.Object);
-
-            // Act
-            var response = controller.GetScores();
-
-            // Assert
-            var objectResult = Assert.IsType<OkObjectResult>(response);
-            var scores = Assert.IsAssignableFrom<IEnumerable<Score>>(objectResult.Value);
-            Assert.Equal(2, scores.Count());
-        }
+        #region GetScore
 
         [Fact]
-        public void GetScore_WhenScoreFound_ReturnsOkResultWithScore()
+        public void GetScore_WhenScoreFoundAndAccessGranted_ReturnsOkResultWithScore()
         {
             // Arrange
             var scoreStub = new Score()
@@ -171,5 +152,7 @@ namespace QuizService.UnitTests
             Assert.Equal("Score", ex.EntityType);
             Assert.Equal(1, ex.EntityId);
         }
+
+        #endregion
     }
 }

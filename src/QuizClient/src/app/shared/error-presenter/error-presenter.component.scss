@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+$warning: mat-palette($mat-pink);
+
+.error-item {
+    color: mat-color($warning);
+}

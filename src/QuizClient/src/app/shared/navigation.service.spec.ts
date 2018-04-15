@@ -23,4 +23,25 @@ describe('NavigationService', () => {
       expect(router.navigate).toHaveBeenCalledWith(['quizzes/2/scores']);
     });
   });
+
+  describe('goToRegistration', () => {
+    it('should navigate to registration page', () => {
+      service.goToRegistration();
+      expect(router.navigate).toHaveBeenCalledWith(['registration']);
+    });
+  });
+
+  describe('goToLogin', () => {
+    it('should navigate to login page', () => {
+      service.goToLogin();
+      expect(router.navigate).toHaveBeenCalledWith(['login']);
+    });
+  });
+
+  describe('goToHome', () => {
+    it('should navigate to quiz templates', () => {
+      service.goToHome();
+      expect(router.navigate).toHaveBeenCalledWith(['quizzes/templates']);
+    });
+  });
 });

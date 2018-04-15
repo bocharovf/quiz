@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using QuizService.Common.Extensions;
+using QuizService.DataAccess.Auth;
 using QuizService.Model;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuizService.DataAccess
 {
@@ -14,7 +17,13 @@ namespace QuizService.DataAccess
         /// Initializes database.
         /// </summary>
         /// <param name="connectionString">The database connection string.</param>
-        public static void InitializeDatabase(string connectionString)
+        /// <param name="adminEmail">Administrator email.</param>
+        /// <param name="adminPassword">Administrator password.</param>
+        /// <param name="userManager">User identity manager.</param>
+        /// <param name="roleManager">Role identity manager.</param>
+        public static async Task InitializeDatabase(
+            string connectionString, string adminEmail, string adminPassword,
+            UserManager<AspnetUser> userManager, RoleManager<AspnetRole> roleManager)
         {
             using (var context = ApplicationDatabaseContextFactory.CreateContext(connectionString))
             {
@@ -23,7 +32,10 @@ namespace QuizService.DataAccess
 #endif
                 
                 context.Database.Migrate();
+
                 InitializeData(context);
+                await InitializeUsersAndRoles(adminEmail, adminPassword, userManager, roleManager);
+
                 context.SaveChanges();
             }
         }
@@ -105,6 +117,28 @@ namespace QuizService.DataAccess
             
             context.QuizTemplates.Add(quizTemplate);
             context.QuizQuestionTemplates.AddRange(new[] { quizQuestion1, quizQuestion2 });
+        }
+
+        private static async Task InitializeUsersAndRoles(
+            string adminEmail, string adminPassword, 
+            UserManager<AspnetUser> userManager, RoleManager<AspnetRole> roleManager)
+        {
+            var adminRole = new AspnetRole(ApplicationRole.Admin);
+            await roleManager.CreateAsync(adminRole);
+
+            var userRole = new AspnetRole(ApplicationRole.User);
+            await roleManager.CreateAsync(userRole);
+
+            var adminUser = new AspnetUser("Admin")
+            {
+                Email = adminEmail
+            };
+
+            await userManager.CreateAsync(adminUser, adminPassword);
+            await userManager.AddToRolesAsync(adminUser, new[] {
+                ApplicationRole.Admin,
+                ApplicationRole.User
+            });
         }
     }
 }

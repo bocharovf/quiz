@@ -18,6 +18,7 @@ export class CorrelationIdInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const correlationId: string = this.generateCorrelationId();
     request = request.clone({
+      withCredentials: true,
       setHeaders: {
         'X-Correlation-ID': correlationId
       }
@@ -34,6 +35,7 @@ export class CorrelationIdInterceptor implements HttpInterceptor {
     const correlationId = error.headers.get('X-Correlation-ID');
     const applicationError = new ApplicationError(error.message, ErrorCodes.ApiRequestError);
     applicationError.correlationId = correlationId;
+    applicationError.source = error;
     return Observable.throw(applicationError);
   }
 }

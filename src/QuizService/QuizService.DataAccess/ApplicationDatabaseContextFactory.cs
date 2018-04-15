@@ -1,36 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using System;
+using QuizService.DataAccess.Configuration;
 
 namespace QuizService.DataAccess
 {
+    /// <summary>
+    /// Provides methods to create <see cref="ApplicationDatabaseContext"/> instance.
+    /// </summary>
     internal class ApplicationDatabaseContextFactory
     {
-        private const string DatabaseUserEnvironmentVariable = "POSTGRES_USER";
-        private const string DatabasePasswordEnvironmentVariable = "POSTGRES_PASSWORD";
-
+        /// <summary>
+        /// Creates and configures <see cref="ApplicationDatabaseContext"/>.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         public static ApplicationDatabaseContext CreateContext(string connectionString)
         {
-            string completeConnectionString = BuildConnectionString(connectionString);
-            DbContextOptions<ApplicationDatabaseContext> options = GetDbContextOptions(completeConnectionString);
-            return new ApplicationDatabaseContext(options);
-        }
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDatabaseContext>()
+                                                .ConfigureApplcationContextOptions(connectionString);
 
-        private static string BuildConnectionString(string connectionString)
-        {
-            var builder = new Npgsql​Connection​String​Builder(connectionString)
-            {
-                Username = Environment.GetEnvironmentVariable(DatabaseUserEnvironmentVariable),
-                Password = Environment.GetEnvironmentVariable(DatabasePasswordEnvironmentVariable)
-            };
-            return builder.ConnectionString;
-        }
-
-        private static DbContextOptions<ApplicationDatabaseContext> GetDbContextOptions(string connectionString)
-        {
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDatabaseContext>();
-            dbContextOptionsBuilder.UseNpgsql(connectionString);
-            return dbContextOptionsBuilder.Options;
+            return new ApplicationDatabaseContext(dbContextOptionsBuilder.Options);
         }
     }
 }

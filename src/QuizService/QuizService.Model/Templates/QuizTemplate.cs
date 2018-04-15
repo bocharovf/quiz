@@ -8,6 +8,11 @@
         public int Id { get; set; }
 
         /// <summary>
+        /// Gets or sets identifier of user which created the quiz template.
+        /// </summary>
+        public int CreatedUserId { get; set; }
+
+        /// <summary>
         /// Gets or sets displayed quiz template title.
         /// </summary>
         public string Title { get; set; }

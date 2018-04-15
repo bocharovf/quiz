@@ -1,6 +1,16 @@
-.logo {
+.link {
     cursor: pointer;
     outline: none;
+}
+
+.logo {
+    @extend .link;
+}
+
+.link-auth {
+    @extend .link;
+    font-size: 14px;
+    margin: 0 0 0 15px;
 }
 
 .icon {
@@ -17,4 +27,8 @@
     color: #bbb;
     font-size: 9px;
     margin: 0 0 0 10px;
+}
+
+.user-name {
+    font-weight: bold;
 }

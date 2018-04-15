@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuizService.Interfaces.Common;
+using QuizService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,14 @@ namespace QuizService.DataAccess
 {
     internal class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey> where TEntity : class
     {
-        public ApplicationDatabaseContext context;
-        public DbSet<TEntity> dbSet;
+        protected ApplicationDatabaseContext context;
+
+        /// <summary>
+        /// Prefiltered entity collection.
+        /// </summary>
+        protected IQueryable<TEntity> Collection => dbSet.Where(this.GlobalFilter);
+
+        private DbSet<TEntity> dbSet;
 
         public GenericRepository(ApplicationDatabaseContext context)
         {
@@ -18,6 +25,18 @@ namespace QuizService.DataAccess
             this.dbSet = context.Set<TEntity>();
         }
 
+        /// <summary>
+        /// Gets filter expression.
+        /// </summary>
+        /// <param name="query">The original query.</param>
+        /// <returns>Filter expression.</returns>
+        protected virtual Expression<Func<TEntity, bool>> GlobalFilter { get => x => true; }
+
+        /// <summary>
+        /// Allows including properties to queries.
+        /// </summary>
+        /// <param name="query">The original query.</param>
+        /// <returns>The query with included properties.</returns>
         protected virtual IQueryable<TEntity> IncludeProperties(IQueryable<TEntity> query)
         {
             return query;
@@ -27,14 +46,13 @@ namespace QuizService.DataAccess
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = this.Collection;
+            query = this.IncludeProperties(query);
 
             if (filter != null)
             {
                 query = query.Where(filter);
-            }
-
-            query = IncludeProperties(query);
+            }            
 
             if (orderBy != null)
             {
@@ -47,8 +65,15 @@ namespace QuizService.DataAccess
         }
 
         public virtual TEntity GetByID(TKey id)
-        {            
-            return dbSet.Find(id);
+        {
+            var entity = dbSet.Find(id);
+            bool isFilteredOut = !this.GlobalFilter.Compile()(entity);
+            if (isFilteredOut)
+            {
+                return null;
+            }
+
+            return entity;
         }
 
         public virtual void Insert(TEntity entity)

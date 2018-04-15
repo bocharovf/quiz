@@ -3,6 +3,25 @@
     <span class="logo" routerLink="{{ homeLink }}" routerLinkActive="active">Quiz</span>
     <span class="version">v0.1.0.1</span>
     <span class="spacer"></span>
+
+    <span
+      *ngIf="!isAuthenticated"
+      class="link-auth"
+      routerLink="{{ loginLink }}"
+      routerLinkActive="active">Sign in</span>
+
+    <span
+      *ngIf="isAuthenticated"
+      class="link-auth"
+      (click)="logout()"
+      routerLinkActive="active">Logout <span class="user-name">{{user.name}}</span></span>
+
+    <span
+      *ngIf="!isAuthenticated"
+      class="link-auth"
+      routerLink="{{ registrationLink }}"
+      routerLinkActive="active">Register</span>
+
     <mat-icon class="icon" routerLink="{{ homeLink }}" routerLinkActive="active">home</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>

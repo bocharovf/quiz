@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { ScreenModule } from './screen/screen.module';
 import { QuizModule } from './quiz/quiz.module';
 import { ScoreModule } from './score/score.module';
+import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 
 /**
@@ -26,7 +27,8 @@ import { AppComponent } from './app.component';
     SharedModule,
     ScreenModule,
     QuizModule,
-    ScoreModule
+    ScoreModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

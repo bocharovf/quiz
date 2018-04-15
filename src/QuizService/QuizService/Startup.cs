@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuizService.Configuration;
 using QuizService.DataAccess;
+using QuizService.DataAccess.Auth;
 using QuizService.Middleware;
 
 namespace QuizService
@@ -13,9 +15,6 @@ namespace QuizService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            string connectionString = Configuration.GetDatabaseConnectionString();
-            DatabaseInitializer.InitializeDatabase(connectionString);
         }
 
         public IConfiguration Configuration { get; }
@@ -28,10 +27,12 @@ namespace QuizService
                     .AddJsonOptions(JsonSerializationConfiguration.Setup);
 
             ServiceConfiguration.ConfigureServices(services, this.Configuration);
+            ServiceConfiguration.ConfigureAuthentication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            UserManager<AspnetUser> userManager, RoleManager<AspnetRole> rolerManager)
         {
             if (env.IsDevelopment())
             {
@@ -40,8 +41,16 @@ namespace QuizService
 
             app.ConfigureCors()
                .UseCorrelationId()
+               .UseAuthentication()
                .UseRequestLogging()
                .UseMvc();
+
+            string databaseConnectionString = this.Configuration.GetDatabaseConnectionString();
+            string administratorEmail = this.Configuration.GetAdministratorEmail();
+            string administratorPassword = this.Configuration.GetAdministratorPassword();
+            DatabaseInitializer.InitializeDatabase(
+                databaseConnectionString, administratorEmail, administratorPassword, 
+                userManager, rolerManager).Wait();
         }
     }
 }

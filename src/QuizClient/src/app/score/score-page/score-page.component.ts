@@ -21,13 +21,14 @@ export class ScorePageComponent implements OnInit {
   /** Scores to display. */
   score: Score;
 
+  /** Link to home location. */
   homeLink: string;
 
   constructor(
     private route: ActivatedRoute,
     private scoreDataService: ScoreDataService,
     private navigation: NavigationService) {
-      this.homeLink = NavigationService.homeLink;
+      this.homeLink = '/' + NavigationService.homeRoute;
   }
 
   ngOnInit() {
