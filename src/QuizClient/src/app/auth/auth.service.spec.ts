@@ -68,7 +68,7 @@ describe('AuthService', () => {
 
     it('should emit registration result if registration failed', (done) => {
       const result = new OperationResultContract();
-      const registrationError = new ApplicationError("Error", "ERR_CODE");
+      const registrationError = new ApplicationError('Error', 'ERR_CODE');
       registrationError.source = new HttpErrorResponse({
         error: result
       });
@@ -161,7 +161,7 @@ describe('AuthService', () => {
 
     it('should emit login result if login failed', (done) => {
       const result = new OperationResultContract();
-      const loginError = new ApplicationError("Error", "ERR_CODE");
+      const loginError = new ApplicationError('Error', 'ERR_CODE');
       loginError.source = new HttpErrorResponse({
         error: result
       });
