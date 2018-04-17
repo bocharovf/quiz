@@ -3,3 +3,6 @@
 ################################################################################
 
 /src/QuizService/QuizService.CodeGen/Scripts/TypeLite.Net4.g.ts
+/src/QuizClient/Chrome*
+/src/QuizClient/PhantomJS*
+/src/QuizClient/.vscode*
