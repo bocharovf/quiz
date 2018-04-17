@@ -3,10 +3,12 @@ using Microsoft.Extensions.Logging;
 using QuizService.BusinessLogic;
 using QuizService.Common.Logging;
 using QuizService.Extensions;
+using QuizService.Filters;
 using QuizService.Model.DataContract;
 
 namespace QuizService.Controllers
 {
+    [QuizExceptionFilter]
     [Produces("application/json")]
     [Route("api/log")]
     public class LoggingController : Controller
