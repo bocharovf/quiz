@@ -20,7 +20,7 @@ namespace QuizService.DataAccess.Auth
                 Id = user.Id,
                 Email = user.Email,
                 Name = user.UserName,
-                Roles = roles
+                Roles = roles ?? new List<string>()
             };
 
             return domainUser;

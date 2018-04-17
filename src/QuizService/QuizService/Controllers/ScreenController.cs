@@ -2,6 +2,7 @@
 using QuizService.BusinessLogic;
 using QuizService.Filters;
 using QuizService.Interfaces.Common;
+using QuizService.Model;
 using QuizService.Model.DataContract;
 
 namespace QuizService.Controllers
@@ -11,7 +12,7 @@ namespace QuizService.Controllers
     [Route("api")]
     public class ScreenController : Controller
     {
-        private IUnitOfWork Uow;
+        private readonly IUnitOfWork Uow;
 
         public ScreenController(IUnitOfWork uow)
         {
@@ -50,8 +51,9 @@ namespace QuizService.Controllers
         [HttpGet("scores/{scoreId}")]
         public IActionResult GetScore(int scoreId)
         {
-            var score = this.Uow.ScoreRepository.GetByID(scoreId);
+            Score score = this.Uow.ScoreRepository.GetByID(scoreId);
             ThrowIf.NotFound(score, scoreId);
+
             return Ok(score);
         }
 

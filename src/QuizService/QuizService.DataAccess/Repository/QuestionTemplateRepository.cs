@@ -20,6 +20,12 @@ namespace QuizService.DataAccess.Repository
             return query;
         }
 
+        /// <summary>
+        /// Gets question template by identifier.
+        /// </summary>
+        /// <param name="id">Question template identifier.</param>
+        /// <returns>The question template.</returns>
+        /// <remarks>Overridden to use included properties.</remarks>
         public override QuestionTemplate GetByID(int id)
         {
             return this.Get(question => question.Id == id).FirstOrDefault();
