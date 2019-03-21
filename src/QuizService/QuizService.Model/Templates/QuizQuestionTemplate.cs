@@ -5,6 +5,10 @@
     /// </summary>
     public class QuizQuestionTemplate
     {
+        private QuizQuestionTemplate()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of <see cref="QuizQuestionTemplate"/>.
         /// </summary>

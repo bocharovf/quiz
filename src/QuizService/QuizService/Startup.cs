@@ -40,7 +40,10 @@ namespace QuizService
             }
 
             app.ConfigureCors()
-               .UseCorrelationId()
+               // disable after migration to .net core 2.1 due to bug
+               // https://github.com/aspnet/AspNetCore/issues/5144
+               // TODO: consider to use OpenTracing instead of custom middleware
+               //.UseCorrelationId()
                .UseAuthentication()
                .UseRequestLogging()
                .UseMvc();
