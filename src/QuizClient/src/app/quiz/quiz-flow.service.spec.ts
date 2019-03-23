@@ -62,7 +62,7 @@ describe('QuizFlowService', () => {
     it('should pass errors to error handling service', () => {
       const error = new Error('error');
       dataService.getQuiz = jasmine.createSpy('getQuiz')
-                              .and.returnValue(Observable.throw(error));
+                              .and.returnValue(Observable.throwError(error));
 
       service.activateQuiz(42);
 
@@ -113,7 +113,7 @@ describe('QuizFlowService', () => {
       const error = new Error('error');
       const quizTemplate = new Model.QuizTemplate();
       dataService.startNewQuiz = jasmine.createSpy('startNewQuiz')
-                                   .and.returnValue(Observable.throw(error));
+                                   .and.returnValue(Observable.throwError(error));
 
       service.startNewQuiz(quizTemplate);
 
@@ -190,7 +190,7 @@ describe('QuizFlowService', () => {
       dataService.getQuiz = jasmine.createSpy('getQuiz')
                                       .and.returnValue(Observable.of(quiz));
       dataService.getNextQuestion = jasmine.createSpy('getNextQuestion')
-                                      .and.returnValue(Observable.throw(error));
+                                      .and.returnValue(Observable.throwError(error));
       dataService.completeQuiz = jasmine.createSpy('completeQuiz')
                                       .and.returnValue(Observable.of({}));
       service.activateQuiz(11);
@@ -221,7 +221,7 @@ describe('QuizFlowService', () => {
       dataService.getQuiz = jasmine.createSpy('getQuiz')
                                       .and.returnValue(Observable.of(quiz));
       dataService.getNextQuestion = jasmine.createSpy('getNextQuestion')
-                                      .and.returnValue(Observable.throw(command));
+                                      .and.returnValue(Observable.throwError(command));
       dataService.answerQuestion = jasmine.createSpy('answerQuestion')
                                       .and.returnValue(Observable.of({}));
       service.activateQuiz(11);
@@ -240,7 +240,7 @@ describe('QuizFlowService', () => {
       dataService.getQuiz = jasmine.createSpy('getQuiz')
                                       .and.returnValue(Observable.of(quiz));
       dataService.getNextQuestion = jasmine.createSpy('getNextQuestion')
-                                      .and.returnValue(Observable.throw(command));
+                                      .and.returnValue(Observable.throwError(command));
       dataService.answerQuestion = jasmine.createSpy('answerQuestion')
                                       .and.returnValue(Observable.of({}));
       service.activateQuiz(11);
@@ -260,9 +260,9 @@ describe('QuizFlowService', () => {
       dataService.getQuiz = jasmine.createSpy('getQuiz')
                                       .and.returnValue(Observable.of(quiz));
       dataService.getNextQuestion = jasmine.createSpy('getNextQuestion')
-                                      .and.returnValue(Observable.throw(error));
+                                      .and.returnValue(Observable.throwError(error));
       dataService.answerQuestion = jasmine.createSpy('answerQuestion')
-                                      .and.returnValue(Observable.throw(error));
+                                      .and.returnValue(Observable.throwError(error));
       service.activateQuiz(11);
 
       service.answerQuestion(15, answer);

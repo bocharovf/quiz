@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, ObservableInput } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { tap, flatMap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
@@ -95,8 +95,8 @@ export class QuizFlowService {
     this.ensureActiveQuiz().pipe(
       flatMap(() => this.activeQuiz$.first()),
       flatMap(
-        quiz => this.dataService.getNextQuestion(quiz.id),
-        (quiz, command) => ({ quiz, command })
+        quiz => this.dataService.getNextQuestion(quiz.id)
+                                .pipe(map(command => ({command, quiz})))
       )
     ).subscribe(
       data => this.dispatchCommand(data.command, data.quiz),
@@ -138,7 +138,7 @@ export class QuizFlowService {
   private ensureActiveQuiz(): Observable<any> {
     if (this.activeQuizId === 0) {
       const error = new ApplicationError('Quiz is not active.', ErrorCodes.QuizIsNotActive);
-      return Observable.throw(error);
+      return Observable.throwError(error);
     }
 
     return Observable.of(true);

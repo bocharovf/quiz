@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { MatRadioModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { EMPTY } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { SharedModule } from '../../shared/shared.module';
 import { QuizFlowPageComponent } from './quiz-flow-page.component';
@@ -24,8 +25,8 @@ describe('QuizFlowPageComponent', () => {
     const activateQuiz = jasmine.createSpy('activateQuiz');
     const quizFlowService = {
       activateQuiz,
-      quizCommand$: Observable.empty(),
-      activeQuiz$: Observable.empty()
+      quizCommand$: EMPTY,
+      activeQuiz$: EMPTY
     };
     TestBed.configureTestingModule({
       imports: [

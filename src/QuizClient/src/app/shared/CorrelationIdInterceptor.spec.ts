@@ -44,7 +44,7 @@ describe('CorrelationIdInterceptor', () => {
         const httpHandler = {
             handle(req: HttpRequest<any>): Observable<any> {
                 const correlationId = req.headers.get('X-Correlation-ID');
-                return Observable.throw(errorResponse);
+                return Observable.throwError(errorResponse);
             }
         };
 

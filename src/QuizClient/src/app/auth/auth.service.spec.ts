@@ -77,7 +77,7 @@ describe('AuthService', () => {
       const contract = new RegistrationContract();
 
       dataService.register = jasmine.createSpy('register')
-                              .and.returnValue(Observable.throw(registrationError));
+                              .and.returnValue(Observable.throwError(registrationError));
       dataService.getStatus = jasmine.createSpy('getStatus')
                               .and.returnValue(Observable.of(status));
       service.registrationResult$
@@ -170,7 +170,7 @@ describe('AuthService', () => {
       const contract = new LoginContract();
 
       dataService.login = jasmine.createSpy('login')
-                              .and.returnValue(Observable.throw(loginError));
+                              .and.returnValue(Observable.throwError(loginError));
       dataService.getStatus = jasmine.createSpy('getStatus')
                               .and.returnValue(Observable.of(status));
       service.loginResult$

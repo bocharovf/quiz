@@ -36,6 +36,6 @@ export class CorrelationIdInterceptor implements HttpInterceptor {
     const applicationError = new ApplicationError(error.message, ErrorCodes.ApiRequestError);
     applicationError.correlationId = correlationId;
     applicationError.source = error;
-    return Observable.throw(applicationError);
+    return Observable.throwError(applicationError);
   }
 }
