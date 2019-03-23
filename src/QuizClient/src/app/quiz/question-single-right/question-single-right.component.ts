@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { Output } from '@angular/core';
-import { Injector } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 
 import { QuestionTemplate, QuizFlowCommandType, Answer } from '../../codegen/model.g';
 import IQuestionComponent from '../IQuestionComponent';
+import IQuestionComponentData from '../IQuestionComponentData';
 
 /**
  * Displays question with choosing single right answer from multiple options.
@@ -24,13 +23,13 @@ export class QuestionSingleRightComponent implements IQuestionComponent, OnInit 
 
   private selectedAnswerId: number;
 
-  constructor(private injector: Injector) {
-    this.questionId = this.injector.get('questionId');
-    this.questionTemplate = this.injector.get('questionTemplate');
-  }
-
   ngOnInit() {
 
+  }
+
+  initData(data: IQuestionComponentData) {
+    this.questionId = data.inputs.questionId;
+    this.questionTemplate = data.inputs.questionTemplate;
   }
 
   answerChanged(args: MatRadioChange) {

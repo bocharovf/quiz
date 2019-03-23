@@ -3,13 +3,21 @@ import { MatRadioModule, MatButtonModule, MatIconModule } from '@angular/materia
 import { SharedModule } from '../../shared/shared.module';
 import { QuestionSingleRightComponent } from './question-single-right.component';
 import { QuestionTemplate } from '../../codegen/model.g';
+import IQuestionComponentData from '../IQuestionComponentData';
 
 describe('QuestionSingleRightComponent', () => {
   let component: QuestionSingleRightComponent;
   let fixture: ComponentFixture<QuestionSingleRightComponent>;
+  let questionComponentData: IQuestionComponentData;
 
   beforeEach(async(() => {
-    const questionTemplate = new QuestionTemplate();
+    questionComponentData = {
+      component: 'SingleRight',
+      inputs: {
+        questionId: 1,
+        questionTemplate: new QuestionTemplate()}
+      };
+
     TestBed.configureTestingModule({
       imports: [
         MatRadioModule,
@@ -17,11 +25,7 @@ describe('QuestionSingleRightComponent', () => {
         MatIconModule,
         SharedModule
       ],
-      declarations: [ QuestionSingleRightComponent ],
-      providers: [
-        {provide: 'questionId', useValue: 1},
-        {provide: 'questionTemplate', useValue: questionTemplate}
-      ]
+      declarations: [ QuestionSingleRightComponent ]
     })
     .compileComponents();
   }));
@@ -29,6 +33,7 @@ describe('QuestionSingleRightComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(QuestionSingleRightComponent);
     component = fixture.componentInstance;
+    component.initData(questionComponentData);
     fixture.detectChanges();
   });
 

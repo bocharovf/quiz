@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, InjectionToken } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { Input } from '@angular/core';
@@ -74,16 +74,9 @@ export class QuizFlowQuestionComponent implements OnInit {
    * @param data Question component data.
    */
   private createComponent (data: IQuestionComponentData): ComponentRef<{}> {
-    const inputProviders = Object.keys(data.inputs).map(inputName =>
-      ({
-        provide: inputName,
-        useValue: data.inputs[inputName]
-      })
-    );
-
-    const injector = Injector.create(inputProviders, this.questionContainer.parentInjector);
     const factory = this.resolver.resolveComponentFactory(data.component);
-    const component = factory.create(injector);
+    const component = this.questionContainer.createComponent(factory);
+    (<IQuestionComponent>component.instance).initData(data);
 
     return component;
   }
