@@ -1,14 +1,13 @@
-FROM node:8-alpine as builder
+FROM node:10-alpine as builder
 COPY package.json package-lock.json ./
-RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
-RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
+RUN npm ci && mkdir /ng-app && mv ./node_modules ./ng-app
 WORKDIR /ng-app
 COPY . .
 
-RUN $(npm bin)/ng build --prod --build-optimizer
+RUN npm run ng build -- --prod --output-path=dist
 
 
-FROM nginx:1.13.3-alpine
+FROM nginx:1.14.1-alpine
 COPY nginx/default.conf /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
