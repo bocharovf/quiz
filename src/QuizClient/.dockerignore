@@ -1,0 +1,7 @@
+Chrome.*/
+PhantomJS.*/
+*.md
+.vscode/
+bower_components/
+node_modules/
+dist/

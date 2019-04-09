@@ -1,0 +1,15 @@
+[Oo]bj/
+[Bb]in/
+*/bin/
+*/obj/
+TestResults/
+.nuget/
+packages/
+artifacts/
+PublishProfiles/
+*.user
+*.suo
+*.cache
+*.md
+.vs/
+.sonarqube/
