@@ -1,4 +1,4 @@
-[![Build status](https://bocharov-f.visualstudio.com/_apis/public/build/definitions/5bf7793d-d514-4eb9-b72f-40efd93f0103/2/badge)](https://bocharov-f.visualstudio.com/quiz/_build/index?context=allDefinitions&path=%5C&definitionId=2&_a=completed)
+[![Build Status](https://bocharov-f.visualstudio.com/quiz/_apis/build/status/Build%20DEV%20branch?branchName=dev)](https://bocharov-f.visualstudio.com/quiz/_build/latest?definitionId=4&branchName=dev)
 
 # Quiz
 
